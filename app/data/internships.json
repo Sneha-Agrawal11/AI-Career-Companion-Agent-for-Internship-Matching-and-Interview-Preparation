@@ -1,0 +1,1862 @@
+﻿[
+    {
+        "id":  1,
+        "title":  "AI/ML Intern - Cohort 1",
+        "company":  "NeuronNest Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to AI/ML use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Machine Learning",
+                                "NumPy",
+                                "Pandas"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "PyTorch",
+                                 "Scikit-learn"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Bengaluru",
+        "work_mode":  "Remote",
+        "duration":  "8 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "AI/ML",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  2,
+        "title":  "AI/ML Intern - Cohort 2",
+        "company":  "BlueOrbit Systems",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to AI/ML use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Machine Learning",
+                                "NumPy",
+                                "Pandas"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "PyTorch",
+                                 "Scikit-learn"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Hyderabad",
+        "work_mode":  "Hybrid",
+        "duration":  "10 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "AI/ML",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  3,
+        "title":  "AI/ML Intern - Cohort 3",
+        "company":  "CloudSprout Tech",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to AI/ML use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Machine Learning",
+                                "NumPy",
+                                "Pandas"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "PyTorch",
+                                 "Scikit-learn"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Pune",
+        "work_mode":  "On-site",
+        "duration":  "12 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "AI/ML",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  4,
+        "title":  "AI/ML Intern - Cohort 4",
+        "company":  "DataMint Analytics",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to AI/ML use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Machine Learning",
+                                "NumPy",
+                                "Pandas"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "PyTorch",
+                                 "Scikit-learn"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Mumbai",
+        "work_mode":  "Remote",
+        "duration":  "16 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "AI/ML",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  5,
+        "title":  "AI/ML Intern - Cohort 5",
+        "company":  "PixelForge Studio",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to AI/ML use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Machine Learning",
+                                "NumPy",
+                                "Pandas"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "PyTorch",
+                                 "Scikit-learn"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Chennai",
+        "work_mode":  "Hybrid",
+        "duration":  "24 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "AI/ML",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  6,
+        "title":  "Machine Learning Intern - Cohort 1",
+        "company":  "CodeHarbor Solutions",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Machine Learning use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Scikit-learn",
+                                "Statistics",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "Feature Engineering",
+                                 "Model Evaluation"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Gurugram",
+        "work_mode":  "On-site",
+        "duration":  "8 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Machine Learning",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  7,
+        "title":  "Machine Learning Intern - Cohort 2",
+        "company":  "QuantLeaf AI",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Machine Learning use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Scikit-learn",
+                                "Statistics",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "Feature Engineering",
+                                 "Model Evaluation"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Noida",
+        "work_mode":  "Remote",
+        "duration":  "10 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Machine Learning",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  8,
+        "title":  "Machine Learning Intern - Cohort 3",
+        "company":  "StackBridge Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Machine Learning use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Scikit-learn",
+                                "Statistics",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "Feature Engineering",
+                                 "Model Evaluation"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Remote - India",
+        "work_mode":  "Hybrid",
+        "duration":  "12 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Machine Learning",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  9,
+        "title":  "Machine Learning Intern - Cohort 4",
+        "company":  "NimbusWare",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Machine Learning use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Scikit-learn",
+                                "Statistics",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "Feature Engineering",
+                                 "Model Evaluation"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Kolkata",
+        "work_mode":  "On-site",
+        "duration":  "16 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Machine Learning",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  10,
+        "title":  "Machine Learning Intern - Cohort 5",
+        "company":  "TerraByte Works",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Machine Learning use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "Scikit-learn",
+                                "Statistics",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TensorFlow",
+                                 "Feature Engineering",
+                                 "Model Evaluation"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Ahmedabad",
+        "work_mode":  "Remote",
+        "duration":  "24 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Machine Learning",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  11,
+        "title":  "Data Science Intern - Cohort 1",
+        "company":  "NeuronNest Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Science use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "Pandas",
+                                "Data Visualization"
+                            ],
+        "preferred_skills":  [
+                                 "Statistics",
+                                 "Power BI",
+                                 "A/B Testing"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Bengaluru",
+        "work_mode":  "Hybrid",
+        "duration":  "8 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Data Science",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  12,
+        "title":  "Data Science Intern - Cohort 2",
+        "company":  "BlueOrbit Systems",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Science use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "Pandas",
+                                "Data Visualization"
+                            ],
+        "preferred_skills":  [
+                                 "Statistics",
+                                 "Power BI",
+                                 "A/B Testing"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Hyderabad",
+        "work_mode":  "On-site",
+        "duration":  "10 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Data Science",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  13,
+        "title":  "Data Science Intern - Cohort 3",
+        "company":  "CloudSprout Tech",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Science use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "Pandas",
+                                "Data Visualization"
+                            ],
+        "preferred_skills":  [
+                                 "Statistics",
+                                 "Power BI",
+                                 "A/B Testing"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Pune",
+        "work_mode":  "Remote",
+        "duration":  "12 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Data Science",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  14,
+        "title":  "Data Science Intern - Cohort 4",
+        "company":  "DataMint Analytics",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Science use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "Pandas",
+                                "Data Visualization"
+                            ],
+        "preferred_skills":  [
+                                 "Statistics",
+                                 "Power BI",
+                                 "A/B Testing"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Mumbai",
+        "work_mode":  "Hybrid",
+        "duration":  "16 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Data Science",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  15,
+        "title":  "Data Science Intern - Cohort 5",
+        "company":  "PixelForge Studio",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Science use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "Pandas",
+                                "Data Visualization"
+                            ],
+        "preferred_skills":  [
+                                 "Statistics",
+                                 "Power BI",
+                                 "A/B Testing"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Chennai",
+        "work_mode":  "On-site",
+        "duration":  "24 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Data Science",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  16,
+        "title":  "Generative AI Intern - Cohort 1",
+        "company":  "CodeHarbor Solutions",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Generative AI use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "LLM Fundamentals",
+                                "Prompt Engineering",
+                                "APIs"
+                            ],
+        "preferred_skills":  [
+                                 "LangChain",
+                                 "Vector Databases",
+                                 "RAG"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Gurugram",
+        "work_mode":  "Remote",
+        "duration":  "8 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Generative AI",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  17,
+        "title":  "Generative AI Intern - Cohort 2",
+        "company":  "QuantLeaf AI",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Generative AI use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "LLM Fundamentals",
+                                "Prompt Engineering",
+                                "APIs"
+                            ],
+        "preferred_skills":  [
+                                 "LangChain",
+                                 "Vector Databases",
+                                 "RAG"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Noida",
+        "work_mode":  "Hybrid",
+        "duration":  "10 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Generative AI",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  18,
+        "title":  "Generative AI Intern - Cohort 3",
+        "company":  "StackBridge Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Generative AI use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "LLM Fundamentals",
+                                "Prompt Engineering",
+                                "APIs"
+                            ],
+        "preferred_skills":  [
+                                 "LangChain",
+                                 "Vector Databases",
+                                 "RAG"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Remote - India",
+        "work_mode":  "On-site",
+        "duration":  "12 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Generative AI",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  19,
+        "title":  "Generative AI Intern - Cohort 4",
+        "company":  "NimbusWare",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Generative AI use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "LLM Fundamentals",
+                                "Prompt Engineering",
+                                "APIs"
+                            ],
+        "preferred_skills":  [
+                                 "LangChain",
+                                 "Vector Databases",
+                                 "RAG"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Kolkata",
+        "work_mode":  "Remote",
+        "duration":  "16 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Generative AI",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  20,
+        "title":  "Generative AI Intern - Cohort 5",
+        "company":  "TerraByte Works",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Generative AI use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "LLM Fundamentals",
+                                "Prompt Engineering",
+                                "APIs"
+                            ],
+        "preferred_skills":  [
+                                 "LangChain",
+                                 "Vector Databases",
+                                 "RAG"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Ahmedabad",
+        "work_mode":  "Hybrid",
+        "duration":  "24 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Generative AI",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  21,
+        "title":  "Backend Development Intern - Cohort 1",
+        "company":  "NeuronNest Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Backend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "FastAPI",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Docker",
+                                 "Redis",
+                                 "REST API Design"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Bengaluru",
+        "work_mode":  "On-site",
+        "duration":  "8 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Backend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  22,
+        "title":  "Backend Development Intern - Cohort 2",
+        "company":  "BlueOrbit Systems",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Backend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "FastAPI",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Docker",
+                                 "Redis",
+                                 "REST API Design"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Hyderabad",
+        "work_mode":  "Remote",
+        "duration":  "10 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Backend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  23,
+        "title":  "Backend Development Intern - Cohort 3",
+        "company":  "CloudSprout Tech",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Backend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "FastAPI",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Docker",
+                                 "Redis",
+                                 "REST API Design"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Pune",
+        "work_mode":  "Hybrid",
+        "duration":  "12 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Backend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  24,
+        "title":  "Backend Development Intern - Cohort 4",
+        "company":  "DataMint Analytics",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Backend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "FastAPI",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Docker",
+                                 "Redis",
+                                 "REST API Design"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Mumbai",
+        "work_mode":  "On-site",
+        "duration":  "16 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Backend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  25,
+        "title":  "Backend Development Intern - Cohort 5",
+        "company":  "PixelForge Studio",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Backend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "FastAPI",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Docker",
+                                 "Redis",
+                                 "REST API Design"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Chennai",
+        "work_mode":  "Remote",
+        "duration":  "24 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Backend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  26,
+        "title":  "Full Stack Development Intern - Cohort 1",
+        "company":  "CodeHarbor Solutions",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Full Stack Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "Node.js",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "MongoDB",
+                                 "CI/CD"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Gurugram",
+        "work_mode":  "Hybrid",
+        "duration":  "8 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Full Stack Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  27,
+        "title":  "Full Stack Development Intern - Cohort 2",
+        "company":  "QuantLeaf AI",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Full Stack Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "Node.js",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "MongoDB",
+                                 "CI/CD"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Noida",
+        "work_mode":  "On-site",
+        "duration":  "10 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Full Stack Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  28,
+        "title":  "Full Stack Development Intern - Cohort 3",
+        "company":  "StackBridge Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Full Stack Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "Node.js",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "MongoDB",
+                                 "CI/CD"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Remote - India",
+        "work_mode":  "Remote",
+        "duration":  "12 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Full Stack Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  29,
+        "title":  "Full Stack Development Intern - Cohort 4",
+        "company":  "NimbusWare",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Full Stack Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "Node.js",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "MongoDB",
+                                 "CI/CD"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Kolkata",
+        "work_mode":  "Hybrid",
+        "duration":  "16 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Full Stack Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  30,
+        "title":  "Full Stack Development Intern - Cohort 5",
+        "company":  "TerraByte Works",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Full Stack Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "Node.js",
+                                "SQL"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "MongoDB",
+                                 "CI/CD"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Ahmedabad",
+        "work_mode":  "On-site",
+        "duration":  "24 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Full Stack Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  31,
+        "title":  "Frontend Development Intern - Cohort 1",
+        "company":  "NeuronNest Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Frontend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "HTML",
+                                "CSS"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "Next.js",
+                                 "Accessibility"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Bengaluru",
+        "work_mode":  "Remote",
+        "duration":  "8 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Frontend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  32,
+        "title":  "Frontend Development Intern - Cohort 2",
+        "company":  "BlueOrbit Systems",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Frontend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "HTML",
+                                "CSS"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "Next.js",
+                                 "Accessibility"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Hyderabad",
+        "work_mode":  "Hybrid",
+        "duration":  "10 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Frontend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  33,
+        "title":  "Frontend Development Intern - Cohort 3",
+        "company":  "CloudSprout Tech",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Frontend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "HTML",
+                                "CSS"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "Next.js",
+                                 "Accessibility"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Pune",
+        "work_mode":  "On-site",
+        "duration":  "12 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Frontend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  34,
+        "title":  "Frontend Development Intern - Cohort 4",
+        "company":  "DataMint Analytics",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Frontend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "HTML",
+                                "CSS"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "Next.js",
+                                 "Accessibility"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Mumbai",
+        "work_mode":  "Remote",
+        "duration":  "16 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Frontend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  35,
+        "title":  "Frontend Development Intern - Cohort 5",
+        "company":  "PixelForge Studio",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Frontend Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "JavaScript",
+                                "React",
+                                "HTML",
+                                "CSS"
+                            ],
+        "preferred_skills":  [
+                                 "TypeScript",
+                                 "Next.js",
+                                 "Accessibility"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Chennai",
+        "work_mode":  "Hybrid",
+        "duration":  "24 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Frontend Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in JavaScript and willingness to learn."
+    },
+    {
+        "id":  36,
+        "title":  "Python Development Intern - Cohort 1",
+        "company":  "CodeHarbor Solutions",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Python Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "OOP",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "FastAPI",
+                                 "Testing",
+                                 "Automation"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Gurugram",
+        "work_mode":  "On-site",
+        "duration":  "8 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Python Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  37,
+        "title":  "Python Development Intern - Cohort 2",
+        "company":  "QuantLeaf AI",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Python Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "OOP",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "FastAPI",
+                                 "Testing",
+                                 "Automation"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Noida",
+        "work_mode":  "Remote",
+        "duration":  "10 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Python Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  38,
+        "title":  "Python Development Intern - Cohort 3",
+        "company":  "StackBridge Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Python Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "OOP",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "FastAPI",
+                                 "Testing",
+                                 "Automation"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Remote - India",
+        "work_mode":  "Hybrid",
+        "duration":  "12 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Python Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  39,
+        "title":  "Python Development Intern - Cohort 4",
+        "company":  "NimbusWare",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Python Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "OOP",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "FastAPI",
+                                 "Testing",
+                                 "Automation"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Kolkata",
+        "work_mode":  "On-site",
+        "duration":  "16 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Python Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  40,
+        "title":  "Python Development Intern - Cohort 5",
+        "company":  "TerraByte Works",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Python Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "OOP",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "FastAPI",
+                                 "Testing",
+                                 "Automation"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Ahmedabad",
+        "work_mode":  "Remote",
+        "duration":  "24 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Python Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  41,
+        "title":  "Java Development Intern - Cohort 1",
+        "company":  "NeuronNest Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Java Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Java",
+                                "Spring Boot",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Microservices",
+                                 "JUnit",
+                                 "Docker"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Bengaluru",
+        "work_mode":  "Hybrid",
+        "duration":  "8 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Java Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Java and willingness to learn."
+    },
+    {
+        "id":  42,
+        "title":  "Java Development Intern - Cohort 2",
+        "company":  "BlueOrbit Systems",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Java Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Java",
+                                "Spring Boot",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Microservices",
+                                 "JUnit",
+                                 "Docker"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Hyderabad",
+        "work_mode":  "On-site",
+        "duration":  "10 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Java Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Java and willingness to learn."
+    },
+    {
+        "id":  43,
+        "title":  "Java Development Intern - Cohort 3",
+        "company":  "CloudSprout Tech",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Java Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Java",
+                                "Spring Boot",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Microservices",
+                                 "JUnit",
+                                 "Docker"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Pune",
+        "work_mode":  "Remote",
+        "duration":  "12 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Java Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Java and willingness to learn."
+    },
+    {
+        "id":  44,
+        "title":  "Java Development Intern - Cohort 4",
+        "company":  "DataMint Analytics",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Java Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Java",
+                                "Spring Boot",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Microservices",
+                                 "JUnit",
+                                 "Docker"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Mumbai",
+        "work_mode":  "Hybrid",
+        "duration":  "16 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Java Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Java and willingness to learn."
+    },
+    {
+        "id":  45,
+        "title":  "Java Development Intern - Cohort 5",
+        "company":  "PixelForge Studio",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Java Development use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Java",
+                                "Spring Boot",
+                                "SQL",
+                                "Git"
+                            ],
+        "preferred_skills":  [
+                                 "Microservices",
+                                 "JUnit",
+                                 "Docker"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Chennai",
+        "work_mode":  "On-site",
+        "duration":  "24 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Java Development",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Java and willingness to learn."
+    },
+    {
+        "id":  46,
+        "title":  "Cloud/DevOps Intern - Cohort 1",
+        "company":  "CodeHarbor Solutions",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Cloud/DevOps use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Linux",
+                                "Docker",
+                                "CI/CD",
+                                "Cloud Basics"
+                            ],
+        "preferred_skills":  [
+                                 "AWS",
+                                 "Kubernetes",
+                                 "Terraform"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Gurugram",
+        "work_mode":  "Remote",
+        "duration":  "8 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Cloud/DevOps",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Linux and willingness to learn."
+    },
+    {
+        "id":  47,
+        "title":  "Cloud/DevOps Intern - Cohort 2",
+        "company":  "QuantLeaf AI",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Cloud/DevOps use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Linux",
+                                "Docker",
+                                "CI/CD",
+                                "Cloud Basics"
+                            ],
+        "preferred_skills":  [
+                                 "AWS",
+                                 "Kubernetes",
+                                 "Terraform"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Noida",
+        "work_mode":  "Hybrid",
+        "duration":  "10 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Cloud/DevOps",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Linux and willingness to learn."
+    },
+    {
+        "id":  48,
+        "title":  "Cloud/DevOps Intern - Cohort 3",
+        "company":  "StackBridge Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Cloud/DevOps use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Linux",
+                                "Docker",
+                                "CI/CD",
+                                "Cloud Basics"
+                            ],
+        "preferred_skills":  [
+                                 "AWS",
+                                 "Kubernetes",
+                                 "Terraform"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Remote - India",
+        "work_mode":  "On-site",
+        "duration":  "12 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Cloud/DevOps",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Linux and willingness to learn."
+    },
+    {
+        "id":  49,
+        "title":  "Cloud/DevOps Intern - Cohort 4",
+        "company":  "NimbusWare",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Cloud/DevOps use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Linux",
+                                "Docker",
+                                "CI/CD",
+                                "Cloud Basics"
+                            ],
+        "preferred_skills":  [
+                                 "AWS",
+                                 "Kubernetes",
+                                 "Terraform"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Kolkata",
+        "work_mode":  "Remote",
+        "duration":  "16 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Cloud/DevOps",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Linux and willingness to learn."
+    },
+    {
+        "id":  50,
+        "title":  "Cloud/DevOps Intern - Cohort 5",
+        "company":  "TerraByte Works",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Cloud/DevOps use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Linux",
+                                "Docker",
+                                "CI/CD",
+                                "Cloud Basics"
+                            ],
+        "preferred_skills":  [
+                                 "AWS",
+                                 "Kubernetes",
+                                 "Terraform"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Ahmedabad",
+        "work_mode":  "Hybrid",
+        "duration":  "24 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Cloud/DevOps",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Linux and willingness to learn."
+    },
+    {
+        "id":  51,
+        "title":  "Data Engineering Intern - Cohort 1",
+        "company":  "NeuronNest Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "ETL",
+                                "Data Modeling"
+                            ],
+        "preferred_skills":  [
+                                 "Airflow",
+                                 "Spark",
+                                 "AWS"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Bengaluru",
+        "work_mode":  "On-site",
+        "duration":  "8 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Data Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  52,
+        "title":  "Data Engineering Intern - Cohort 2",
+        "company":  "BlueOrbit Systems",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "ETL",
+                                "Data Modeling"
+                            ],
+        "preferred_skills":  [
+                                 "Airflow",
+                                 "Spark",
+                                 "AWS"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Hyderabad",
+        "work_mode":  "Remote",
+        "duration":  "10 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Data Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  53,
+        "title":  "Data Engineering Intern - Cohort 3",
+        "company":  "CloudSprout Tech",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "ETL",
+                                "Data Modeling"
+                            ],
+        "preferred_skills":  [
+                                 "Airflow",
+                                 "Spark",
+                                 "AWS"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Pune",
+        "work_mode":  "Hybrid",
+        "duration":  "12 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Data Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  54,
+        "title":  "Data Engineering Intern - Cohort 4",
+        "company":  "DataMint Analytics",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "ETL",
+                                "Data Modeling"
+                            ],
+        "preferred_skills":  [
+                                 "Airflow",
+                                 "Spark",
+                                 "AWS"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Mumbai",
+        "work_mode":  "On-site",
+        "duration":  "16 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Data Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  55,
+        "title":  "Data Engineering Intern - Cohort 5",
+        "company":  "PixelForge Studio",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Data Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Python",
+                                "SQL",
+                                "ETL",
+                                "Data Modeling"
+                            ],
+        "preferred_skills":  [
+                                 "Airflow",
+                                 "Spark",
+                                 "AWS"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Chennai",
+        "work_mode":  "Remote",
+        "duration":  "24 weeks",
+        "stipend":  "INR 12000/month",
+        "domain":  "Data Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Python and willingness to learn."
+    },
+    {
+        "id":  56,
+        "title":  "Software Engineering Intern - Cohort 1",
+        "company":  "CodeHarbor Solutions",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Software Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Data Structures",
+                                "Algorithms",
+                                "Git",
+                                "Problem Solving"
+                            ],
+        "preferred_skills":  [
+                                 "Python",
+                                 "Java",
+                                 "System Design"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Gurugram",
+        "work_mode":  "Hybrid",
+        "duration":  "8 weeks",
+        "stipend":  "INR 15000/month",
+        "domain":  "Software Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Data Structures and willingness to learn."
+    },
+    {
+        "id":  57,
+        "title":  "Software Engineering Intern - Cohort 2",
+        "company":  "QuantLeaf AI",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Software Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Data Structures",
+                                "Algorithms",
+                                "Git",
+                                "Problem Solving"
+                            ],
+        "preferred_skills":  [
+                                 "Python",
+                                 "Java",
+                                 "System Design"
+                             ],
+        "education_requirements":  "Pursuing B.Tech/B.E. in CS/IT or related field",
+        "experience_requirements":  "0-1 years or strong academic projects",
+        "location":  "Noida",
+        "work_mode":  "On-site",
+        "duration":  "10 weeks",
+        "stipend":  "INR 18000/month",
+        "domain":  "Software Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Data Structures and willingness to learn."
+    },
+    {
+        "id":  58,
+        "title":  "Software Engineering Intern - Cohort 3",
+        "company":  "StackBridge Labs",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Software Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Data Structures",
+                                "Algorithms",
+                                "Git",
+                                "Problem Solving"
+                            ],
+        "preferred_skills":  [
+                                 "Python",
+                                 "Java",
+                                 "System Design"
+                             ],
+        "education_requirements":  "Bachelor\u0027s degree in Computer Science, Engineering, or equivalent",
+        "experience_requirements":  "Freshers welcome; internship/project experience preferred",
+        "location":  "Remote - India",
+        "work_mode":  "Remote",
+        "duration":  "12 weeks",
+        "stipend":  "INR 22000/month",
+        "domain":  "Software Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Data Structures and willingness to learn."
+    },
+    {
+        "id":  59,
+        "title":  "Software Engineering Intern - Cohort 4",
+        "company":  "NimbusWare",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Software Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Data Structures",
+                                "Algorithms",
+                                "Git",
+                                "Problem Solving"
+                            ],
+        "preferred_skills":  [
+                                 "Python",
+                                 "Java",
+                                 "System Design"
+                             ],
+        "education_requirements":  "Final year undergraduate or recent graduate in a technical discipline",
+        "experience_requirements":  "Entry-level, hands-on portfolio required",
+        "location":  "Kolkata",
+        "work_mode":  "Hybrid",
+        "duration":  "16 weeks",
+        "stipend":  "INR 25000/month",
+        "domain":  "Software Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Data Structures and willingness to learn."
+    },
+    {
+        "id":  60,
+        "title":  "Software Engineering Intern - Cohort 5",
+        "company":  "TerraByte Works",
+        "description":  "This is a synthetic internship posting created for academic project evaluation. The intern will contribute to Software Engineering use cases, develop practical solutions, and present measurable outcomes.",
+        "required_skills":  [
+                                "Data Structures",
+                                "Algorithms",
+                                "Git",
+                                "Problem Solving"
+                            ],
+        "preferred_skills":  [
+                                 "Python",
+                                 "Java",
+                                 "System Design"
+                             ],
+        "education_requirements":  "BCA/MCA or equivalent with strong programming fundamentals",
+        "experience_requirements":  "0-2 years experience in relevant technologies",
+        "location":  "Ahmedabad",
+        "work_mode":  "On-site",
+        "duration":  "24 weeks",
+        "stipend":  "INR 30000/month",
+        "domain":  "Software Engineering",
+        "responsibilities":  [
+                                 "Work with mentors on domain-focused tasks and weekly goals",
+                                 "Build and improve features aligned with internship objectives",
+                                 "Participate in code reviews, demos, and documentation",
+                                 "Collaborate with cross-functional team members"
+                             ],
+        "eligibility":  "Students or recent graduates with fundamentals in Data Structures and willingness to learn."
+    }
+]
