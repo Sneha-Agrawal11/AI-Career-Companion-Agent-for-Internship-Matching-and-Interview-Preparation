@@ -4,7 +4,8 @@ from sqlalchemy.orm import Session
 from fastapi import Depends
 
 from app.database import get_db
-from app.models import Resume
+from app.models import Resume, User
+from app.auth import get_current_user
 
 from utils import (
     extract_text_from_pdf,
@@ -35,6 +36,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 async def upload_resume(
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     if not file.filename.endswith((".pdf", ".docx")):
         raise HTTPException(
@@ -72,7 +74,8 @@ async def upload_resume(
 
     resume = Resume(
     filename=file.filename,
-    parsed_data=json.dumps(parsed_result)
+    parsed_data=json.dumps(parsed_result),
+    user_id=current_user.id
 ) 
 
     
@@ -100,7 +103,37 @@ async def upload_resume(
     }
 
 @router.get("/all")
-def get_all_resumes(db: Session = Depends(get_db)):
-    resumes = db.query(Resume).all()
+def get_all_resumes(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    resumes = db.query(Resume).filter(Resume.user_id == current_user.id).order_by(Resume.uploaded_at.desc()).all()
 
-    return resumes
+    result = []
+    for r in resumes:
+        try:
+            parsed = json.loads(r.parsed_data or "{}")
+        except:
+            parsed = {}
+        result.append({
+            "id": r.id,
+            "filename": r.filename,
+            "uploaded_at": str(r.uploaded_at),
+            "skills_count": len(parsed.get("skills", [])),
+            **parsed
+        })
+    return result
+
+
+@router.get("/{resume_id}")
+def get_resume(resume_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    resume = db.query(Resume).filter(Resume.id == resume_id, Resume.user_id == current_user.id).first()
+    if not resume:
+        raise HTTPException(status_code=404, detail="Resume not found")
+    try:
+        parsed = json.loads(resume.parsed_data or "{}")
+    except:
+        parsed = {}
+    return {
+        "id": resume.id,
+        "filename": resume.filename,
+        "uploaded_at": str(resume.uploaded_at),
+        **parsed,
+    }
