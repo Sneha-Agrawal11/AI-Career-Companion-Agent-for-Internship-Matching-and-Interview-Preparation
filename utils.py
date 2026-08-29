@@ -523,7 +523,6 @@ def extract_experience(text: str) -> list[str]:
 
 def analyze_resume(text):
     score = 0
-
     strengths = []
     weaknesses = []
     suggestions = []
@@ -531,34 +530,64 @@ def analyze_resume(text):
     skills = extract_skills(text)
     education = extract_education(text)
     experience = extract_experience(text)
+    emails = extract_emails(text)
+    phones = extract_phone_numbers(text)
+    name = extract_name(text)
 
+    # 1. Contact info (30 points max)
+    if name:
+        score += 10
+        strengths.append("Name detected")
+    else:
+        weaknesses.append("Name missing")
+
+    if emails:
+        score += 10
+        strengths.append("Email detected")
+    else:
+        weaknesses.append("Email missing")
+
+    if phones:
+        score += 10
+        strengths.append("Phone number detected")
+    else:
+        weaknesses.append("Phone number missing")
+
+    # 2. Skills (25 points max)
     if skills:
-        score += 30
-        strengths.append("Technical skills found")
+        num_skills = len(skills)
+        skill_score = min(25, num_skills * 3)
+        score += skill_score
+        strengths.append(f"Technical skills found ({num_skills})")
     else:
         weaknesses.append("No technical skills found")
 
+    # 3. Education (15 points max)
     if education:
-        score += 20
+        edu_score = min(15, len(education) * 5 + 5)
+        score += edu_score
         strengths.append("Education section found")
     else:
         weaknesses.append("Education section missing")
 
+    # 4. Experience (20 points max)
     if experience:
-        score += 30
+        exp_score = min(20, len(experience) * 4 + 5)
+        score += exp_score
         strengths.append("Work experience found")
     else:
         weaknesses.append("Work experience missing")
 
-    if extract_emails(text):
+    # 5. Length / Detail (10 points max)
+    text_len = len(text.strip()) if text else 0
+    if text_len > 1500:
         score += 10
-    else:
-        weaknesses.append("Email missing")
-
-    if extract_phone_numbers(text):
-        score += 10
-    else:
-        weaknesses.append("Phone number missing")
+    elif text_len > 1000:
+        score += 7
+    elif text_len > 500:
+        score += 4
+    elif text_len > 0:
+        score += 2
 
     if score < 70:
         suggestions.append("Add more technical skills")
@@ -571,7 +600,7 @@ def analyze_resume(text):
         suggestions.append("Excellent resume")
 
     return {
-        "resume_score": score,
+        "resume_score": min(100, max(0, score)),
         "strengths": strengths,
         "weaknesses": weaknesses,
         "suggestions": suggestions
