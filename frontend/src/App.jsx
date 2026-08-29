@@ -1,12 +1,147 @@
 import { useEffect, useState } from "react";
-import { LayoutDashboard, User, Search, Send, BarChart3, FileEdit, LogOut, Menu, X, ChevronsLeft, ChevronsRight, FileText } from "lucide-react";
+import { LayoutDashboard, User, Search, Send, BarChart3, FileEdit, LogOut, Menu, X, ChevronsLeft, ChevronsRight, FileText, Sun, Moon, Bot, Sparkles, Briefcase } from "lucide-react";
 import "./App.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
+
+
+function Chatbot() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState([{ sender: "bot", text: "Hi! I'm your AI Career Copilot. How can I help you today?" }]);
+  const [input, setInput] = useState("");
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+    setMessages([...messages, { sender: "user", text: input }]);
+    setInput("");
+    setTimeout(() => {
+      setMessages((prev) => [...prev, { sender: "bot", text: "I'm a demo chatbot. I can help you prepare for interviews or improve your resume!" }]);
+    }, 1000);
+  };
+
+  return (
+    <>
+      <button 
+        className="chatbot-fab" 
+        onClick={() => setIsOpen(true)}
+        style={{
+          position: 'fixed', bottom: '30px', right: '30px', width: '64px', height: '64px',
+          borderRadius: '50%', border: '2px solid rgba(139, 92, 246, 0.4)',
+          boxShadow: '0 8px 32px rgba(124, 58, 237, 0.3)',
+          display: isOpen ? 'none' : 'flex', alignItems: 'center', justifyContent: 'center',
+          cursor: 'pointer', zIndex: 1000, overflow: 'hidden',
+          background: 'var(--surface)'
+        }}
+      >
+        <img src="/hero-robot.jpg" alt="AI Chat" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </button>
+
+      {isOpen && (
+        <div className="chatbot-panel" style={{
+          position: 'fixed', bottom: '30px', right: '30px', width: '350px', height: '500px',
+          background: 'white', borderRadius: '16px', display: 'flex', flexDirection: 'column',
+          overflow: 'hidden', zIndex: 1000,
+          animation: 'fadeIn 0.3s ease'
+        }}>
+          <div className="chatbot-header" style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px',
+            borderBottom: '1px solid var(--border)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--purple-soft)', color: 'var(--purple)', display: 'grid', placeItems: 'center' }}>
+                <Sparkles size={18} />
+              </div>
+              <div>
+                <strong style={{ display: 'block', fontSize: '14px', lineHeight: '1.2' }}>Product Assistant</strong>
+                <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Online</span>
+              </div>
+            </div>
+            <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: '4px' }}>
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="chatbot-messages" style={{
+            flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px'
+          }}>
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`chatbot-msg ${msg.sender}`} style={{
+                display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start'
+              }}>
+                <div className="chatbot-msg-bubble" style={{
+                  maxWidth: '80%', padding: '10px 14px', borderRadius: '12px',
+                  background: msg.sender === 'user' ? 'var(--purple)' : 'var(--surface)',
+                  color: msg.sender === 'user' ? 'white' : 'var(--text)',
+                  border: msg.sender === 'user' ? 'none' : '1px solid var(--border)',
+                  fontSize: '13px', lineHeight: '1.4',
+                  borderBottomRightRadius: msg.sender === 'user' ? '4px' : '12px',
+                  borderBottomLeftRadius: msg.sender === 'bot' ? '4px' : '12px'
+                }}>
+                  {msg.text}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="chatbot-input-row" style={{
+            padding: '16px', borderTop: '1px solid var(--border)', display: 'flex', gap: '10px'
+          }}>
+            <input 
+              className="chatbot-input"
+              type="text" 
+              placeholder="Ask me anything..." 
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+              style={{
+                flex: 1, padding: '10px 14px', borderRadius: '8px', border: '1px solid var(--border)', outline: 'none'
+              }}
+            />
+            <button 
+              onClick={handleSend}
+              style={{
+                background: 'var(--purple)', color: 'white', border: 'none', borderRadius: '8px',
+                width: '40px', display: 'grid', placeItems: 'center', cursor: 'pointer'
+              }}
+            >
+              <Send size={16} />
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
 function App() {
   const [screen, setScreen] = useState("auth");
-  const [authMode, setAuthMode] = useState("login");
+  const [authMode, setAuthMode] = useState("landing");
+  const [infoModal, setInfoModal] = useState(null);
+  const [darkMode, setDarkMode] = useState(() => {
+    return localStorage.getItem("theme") === "dark";
+  });
+
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute('data-theme', 'light');
+      localStorage.setItem("theme", "light");
+    }
+  }, [darkMode]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        if (infoModal) setInfoModal(null);
+        if (authMode !== 'landing') setAuthMode('landing');
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [infoModal, authMode]);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -37,7 +172,8 @@ function App() {
   photo: null,
 });
 
-const [editingProfile, setEditingProfile] = useState(false);
+  const [newSkill, setNewSkill] = useState("");
+  const [editingProfile, setEditingProfile] = useState(false);
 const [sidebarOpen, setSidebarOpen] = useState(false);
 const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
   return localStorage.getItem("sidebarCollapsed") === "true";
@@ -93,7 +229,8 @@ const fetchResumes = async (currentToken) => {
 
      setUserName(email.split("@")[0]);
 
-const savedProfile = localStorage.getItem("profile");
+const profileKey = "profile_" + email.split("@")[0];
+const savedProfile = localStorage.getItem(profileKey);
 
 if (savedProfile) {
   setProfile(JSON.parse(savedProfile));
@@ -116,6 +253,12 @@ fetchResumes(accessToken);
     } finally {
       setLoading(false);
     }
+  };
+
+  const saveProfile = () => {
+    const profileKey = "profile_" + email.split("@")[0];
+    localStorage.setItem(profileKey, JSON.stringify(profile));
+    setEditingProfile(false);
   };
 
   const handleRegister = async (e) => {
@@ -197,16 +340,7 @@ fetchResumes(accessToken);
       }
 
       setResumeId(data.resume_id);
-setResumeData(data);
-
-setProfile((prev) => ({
-  ...prev,
-  name: data.name || prev.name,
-  email: data.emails?.[0] || prev.email,
-  phone: data.phones?.[0] || prev.phone,
-  education: data.education || "",
-  skills: data.skills || [],
-}));
+      setResumeData(data);
 
 setMessage("Resume analyzed successfully.");
 setScreen("extraction");
@@ -266,14 +400,6 @@ fetchResumes(token);
         const data = await response.json();
         setResumeId(data.id);
         setResumeData(data);
-        setProfile((prev) => ({
-          ...prev,
-          name: data.name || prev.name,
-          email: data.emails?.[0] || prev.email,
-          phone: data.phones?.[0] || prev.phone,
-          education: data.education || "",
-          skills: data.skills || [],
-        }));
         setScreen("extraction");
       }
     } catch (err) {
@@ -281,145 +407,275 @@ fetchResumes(token);
     }
   };
 
-  const sidebarProps = { sidebarCollapsed, setSidebarCollapsed,  screen, setScreen, selectedInternship, profile, userName, email, logout, sidebarOpen, setSidebarOpen, matches };
+  const sidebarProps = { sidebarCollapsed, setSidebarCollapsed,  screen, setScreen, selectedInternship, profile, userName, email, logout, sidebarOpen, setSidebarOpen, matches, darkMode, setDarkMode };
 
   // ---------------- AUTH SCREEN ----------------
 
   if (screen === "auth") {
     return (
-      <div className="app-shell auth-shell">
-        <div className="auth-left">
-          <div className="brand">
-            <div className="brand-mark">AI</div>
-            <span>InternMatch</span>
+      <div className="landing-wrapper">
+        <div className="landing-background">
+          <div className="landing-bg-blob blob-purple"></div>
+          <div className="landing-bg-blob blob-blue"></div>
+          <div className="landing-bg-grid"></div>
+        </div>
+
+        <nav className="landing-nav">
+          <div className="landing-nav-left">
+            <div className="brand">
+              <div className="brand-mark">AI</div>
+              <span>InternMatch</span>
+            </div>
+            <div className="landing-links">
+              <button onClick={() => setInfoModal('features')} className="nav-link-btn">Features</button>
+              <button onClick={() => setInfoModal('how-it-works')} className="nav-link-btn">How It Works</button>
+              <button onClick={() => setInfoModal('for-students')} className="nav-link-btn">For Students</button>
+            </div>
           </div>
+          <div className="landing-nav-right">
+            <button
+              className="landing-theme-toggle"
+              onClick={() => {
+                setDarkMode(!darkMode);
+              }}
+              title="Toggle Dark Mode"
+            >
+              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+            </button>
+            <button className="landing-btn-text" onClick={() => setAuthMode("login")}>Sign In</button>
+            <button className="landing-btn-primary" onClick={() => setAuthMode("register")}>Get Started</button>
+          </div>
+        </nav>
 
-          <div className="hero-content">
-            <div className="eyebrow">AI-POWERED INTERNSHIP MATCHING</div>
-
+        <div className="landing-hero">
+          <div className="landing-hero-content">
+            <div className="eyebrow">
+              <Sparkles size={16} style={{marginRight: '6px'}}/> AI-POWERED CAREER MATCHING
+            </div>
             <h1>
-              Find the internship
-              <span> that fits you.</span>
+              Find the internship<br />
+              <span className="text-gradient">that fits you.</span>
             </h1>
-
             <p>
-              Upload your resume and let semantic AI matching discover
-              internships based on your skills, education and experience.
+              Upload your resume and let semantic AI matching discover internships based on your skills, education, experience and career goals.
             </p>
-
-            <div className="hero-points">
-              <div>
-                <strong>01</strong>
-                <span>Resume intelligence</span>
-              </div>
-
-              <div>
-                <strong>02</strong>
-                <span>Semantic matching</span>
-              </div>
-
-              <div>
-                <strong>03</strong>
-                <span>Personalized ranking</span>
-              </div>
+            <div className="landing-actions">
+              <button className="landing-btn-primary large" onClick={() => setAuthMode("register")}>
+                Get Started →
+              </button>
+              <button className="landing-btn-secondary large">
+                Explore How It Works
+              </button>
             </div>
           </div>
 
-          <div className="footer-note">
-            AI Internship Matching System
+          <div className="landing-hero-visual">
+            <div className="ai-core-container">
+              <div className="ai-core" style={{ background: 'none', boxShadow: 'none' }}>
+                <img src="/hero-robot.jpg" alt="AI Career Robot" className="ai-core-image" />
+              </div>
+              <div className="ai-orbit orbit-1"></div>
+              <div className="ai-orbit orbit-2"></div>
+              <div className="ai-orbit orbit-3"></div>
+
+              {/* Floating Elements */}
+              <div className="floating-card f-resume">
+                <FileText size={16} /> Resume
+              </div>
+              <div className="floating-card f-match">
+                <BarChart3 size={16} /> 98% Profile Match
+              </div>
+              <div className="floating-card f-job">
+                <Briefcase size={16} /> Software Engineering Intern
+              </div>
+
+              <div className="floating-chip chip-react">React</div>
+              <div className="floating-chip chip-python">Python</div>
+              <div className="floating-chip chip-sql">SQL</div>
+              <div className="floating-chip chip-ai">AI/ML</div>
+
+              <div className="connection-line c-line-1"></div>
+              <div className="connection-line c-line-2"></div>
+            </div>
           </div>
         </div>
 
-        <div className="auth-right">
-          <div className="auth-card">
-            <div className="auth-heading">
-              <div className="mini-badge">✦ AI</div>
+        {/* Auth Modal Overlay */}
+        {authMode !== "landing" && (
+          <div className="auth-modal-overlay">
+            <div className="auth-modal-card">
+              <button className="auth-modal-close" onClick={() => setAuthMode("landing")}>
+                <X size={20} />
+              </button>
+              
+              <div className="auth-heading">
+                <div className="mini-badge">✦ AI</div>
+                <h2>
+                  {authMode === "login" ? "Welcome back" : "Create your account"}
+                </h2>
+                <p>
+                  {authMode === "login"
+                    ? "Sign in to continue your internship search."
+                    : "Start finding internships matched to your profile."}
+                </p>
+              </div>
 
-              <h2>
-                {authMode === "login"
-                  ? "Welcome back"
-                  : "Create your account"}
-              </h2>
+              {error && <div className="alert error">{error}</div>}
+              {message && <div className="alert success">{message}</div>}
 
-              <p>
-                {authMode === "login"
-                  ? "Sign in to continue your internship search."
-                  : "Start finding internships matched to your profile."}
-              </p>
-            </div>
+              <form className="auth-form" onSubmit={authMode === "login" ? handleLogin : handleRegister}>
+                {authMode === "register" && (
+                  <div className="form-group">
+                    <label>Full name</label>
+                    <input
+                      type="text"
+                      placeholder="Your full name"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      required
+                    />
+                  </div>
+                )}
 
-            {error && <div className="alert error">{error}</div>}
-            {message && <div className="alert success">{message}</div>}
-
-            <form
-              onSubmit={
-                authMode === "login" ? handleLogin : handleRegister
-              }
-            >
-              {authMode === "register" && (
-                <label>
-                  Full name
+                <div className="form-group">
+                  <label>Email</label>
                   <input
-                    type="text"
-                    placeholder="Your full name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    type="email"
+                    placeholder="you@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
-                </label>
+                </div>
+
+                <div className="form-group">
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <button className="primary-btn full-width-btn" type="submit" disabled={loading}>
+                  {loading
+                    ? "Please wait..."
+                    : authMode === "login"
+                    ? "Sign in"
+                    : "Create account"}
+                  {!loading && <span>→</span>}
+                </button>
+              </form>
+
+              <div className="auth-switch">
+                {authMode === "login" ? (
+                  <>
+                    Don't have an account?
+                    <button onClick={() => setAuthMode("register")}>Create one</button>
+                  </>
+                ) : (
+                  <>
+                    Already have an account?
+                    <button onClick={() => setAuthMode("login")}>Sign in</button>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Info Modals */}
+        {infoModal && (
+          <div className="auth-modal-overlay" onClick={() => setInfoModal(null)}>
+            <div className="auth-modal-card info-modal-card" onClick={e => e.stopPropagation()}>
+              <button className="auth-modal-close" onClick={() => setInfoModal(null)}>
+                <X size={20} />
+              </button>
+              
+              {infoModal === 'features' && (
+                <div className="info-modal-content">
+                  <div className="mini-badge">✦ FEATURES</div>
+                  <h2>Everything you need</h2>
+                  <div className="info-grid">
+                    <div className="info-item">
+                      <FileText size={20} className="info-icon" />
+                      <h4>AI Resume Intelligence</h4>
+                      <p>Understand skills, education and experience directly from your uploaded resumes.</p>
+                    </div>
+                    <div className="info-item">
+                      <Search size={20} className="info-icon" />
+                      <h4>Semantic Match</h4>
+                      <p>Match your profile against internships using intelligent semantic similarity.</p>
+                    </div>
+                    <div className="info-item">
+                      <BarChart3 size={20} className="info-icon" />
+                      <h4>Skill Gap Analysis</h4>
+                      <p>Identify skills required by a role that are currently missing from your profile.</p>
+                    </div>
+                    <div className="info-item">
+                      <FileEdit size={20} className="info-icon" />
+                      <h4>AI Cover Letters</h4>
+                      <p>Generate a tailored starting draft for your specific internship application.</p>
+                    </div>
+                  </div>
+                </div>
               )}
 
-              <label>
-                Email
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </label>
+              {infoModal === 'how-it-works' && (
+                <div className="info-modal-content">
+                  <div className="mini-badge">✦ HOW IT WORKS</div>
+                  <h2>The Process</h2>
+                  <div className="timeline-steps">
+                    <div className="t-step">
+                      <div className="t-circle">1</div>
+                      <div>
+                        <h4>Upload your resume</h4>
+                        <p>InternMatch analyzes the document to extract relevant career data.</p>
+                      </div>
+                    </div>
+                    <div className="t-step">
+                      <div className="t-circle">2</div>
+                      <div>
+                        <h4>AI analyzes your profile</h4>
+                        <p>Skills, education, and experience are considered for semantic matching.</p>
+                      </div>
+                    </div>
+                    <div className="t-step">
+                      <div className="t-circle">3</div>
+                      <div>
+                        <h4>Discover matched internships</h4>
+                        <p>Opportunities are ranked according to compatibility with your profile.</p>
+                      </div>
+                    </div>
+                    <div className="t-step">
+                      <div className="t-circle">4</div>
+                      <div>
+                        <h4>Prepare your application</h4>
+                        <p>Analyze skill gaps and generate a personalized cover letter instantly.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
-              <label>
-                Password
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </label>
-
-              <button className="primary-btn" type="submit" disabled={loading}>
-                {loading
-                  ? "Please wait..."
-                  : authMode === "login"
-                  ? "Sign in"
-                  : "Create account"}
-                {!loading && <span>→</span>}
-              </button>
-            </form>
-
-            <div className="auth-switch">
-              {authMode === "login" ? (
-                <>
-                  Don't have an account?
-                  <button onClick={() => setAuthMode("register")}>
-                    Create one
-                  </button>
-                </>
-              ) : (
-                <>
-                  Already have an account?
-                  <button onClick={() => setAuthMode("login")}>
-                    Sign in
-                  </button>
-                </>
+              {infoModal === 'for-students' && (
+                <div className="info-modal-content">
+                  <div className="mini-badge">✦ FOR STUDENTS</div>
+                  <h2>Built for smarter discovery</h2>
+                  <p className="modal-subtitle">Stop guessing what internships fit you.</p>
+                  <ul className="student-benefits">
+                    <li><Sparkles size={16}/> Find internships aligned with your actual skills.</li>
+                    <li><Sparkles size={16}/> Understand why an opportunity matches you.</li>
+                    <li><Sparkles size={16}/> Identify exactly what skills you're missing.</li>
+                    <li><Sparkles size={16}/> Keep multiple resumes organized in one place.</li>
+                    <li><Sparkles size={16}/> Use AI assistance without losing control over your application.</li>
+                  </ul>
+                </div>
               )}
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
@@ -486,6 +742,8 @@ fetchResumes(token);
           </div>
 
         </div>
+
+
 
 
         {/* PROFILE SUMMARY */}
@@ -879,22 +1137,70 @@ if (screen === "profile") {
 
             <div className="form-section-title skills-title">
               <span>YOUR SKILLS</span>
-              <h2>Skills extracted from your resume</h2>
+              <h2>Your Skills</h2>
             </div>
 
 
             <div className="profile-skills">
 
+              {editingProfile && (
+                <div style={{ display: "flex", gap: "10px", width: "100%", marginBottom: "15px" }}>
+                  <input
+                    type="text"
+                    placeholder="Type a skill and press Enter"
+                    value={newSkill}
+                    onChange={(e) => setNewSkill(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        if (newSkill.trim()) {
+                          setProfile({...profile, skills: [...(profile.skills || []), newSkill.trim()]});
+                          setNewSkill("");
+                        }
+                      }
+                    }}
+                    style={{ flex: 1, padding: "10px 14px", borderRadius: "8px", border: "1px solid var(--border)", background: "var(--surface)", color: "var(--text)" }}
+                  />
+                  <button
+                    type="button"
+                    className="secondary-btn"
+                    onClick={() => {
+                      if (newSkill.trim()) {
+                        setProfile({...profile, skills: [...(profile.skills || []), newSkill.trim()]});
+                        setNewSkill("");
+                      }
+                    }}
+                  >
+                    Add
+                  </button>
+                </div>
+              )}
+
               {(profile.skills || []).length > 0 ? (
                 profile.skills.map((skill, index) => (
                   <span className="profile-skill" key={index}>
-                    ✓ {skill}
+                    {skill}
+                    {editingProfile && (
+                      <button 
+                        type="button" 
+                        onClick={() => {
+                          const newSkills = [...profile.skills];
+                          newSkills.splice(index, 1);
+                          setProfile({...profile, skills: newSkills});
+                        }}
+                        style={{ marginLeft: "8px", background: "none", border: "none", cursor: "pointer", color: "inherit", padding: 0, fontSize: "14px", fontWeight: "bold" }}
+                      >
+                        ×
+                      </button>
+                    )}
                   </span>
                 ))
               ) : (
-                <p className="muted">
-                  Upload your resume to automatically detect your skills.
-                </p>
+                !editingProfile && (
+                  <p className="muted">
+                    Add your skills by editing your profile.
+                  </p>
+                )
               )}
 
             </div>
@@ -1056,35 +1362,53 @@ if (screen === "profile") {
 
             <h2>From resume to ranked opportunities.</h2>
 
-            <div className="pipeline">
-              <div>
-                <span>01</span>
-                <strong>Resume</strong>
-                <small>Your PDF</small>
+            <div className="pipeline-new">
+              <div className="pipeline-step">
+                <div className="step-icon"><FileText size={24} /></div>
+                <div className="step-content">
+                  <span>01</span>
+                  <strong>Resume</strong>
+                  <small>Upload your PDF</small>
+                </div>
               </div>
 
-              <i>→</i>
-
-              <div>
-                <span>02</span>
-                <strong>Parsing</strong>
-                <small>Extract profile</small>
+              <div className="pipeline-connector">
+                <div className="connector-line"></div>
               </div>
 
-              <i>→</i>
-
-              <div>
-                <span>03</span>
-                <strong>Vector Search</strong>
-                <small>Semantic retrieval</small>
+              <div className="pipeline-step">
+                <div className="step-icon"><Sparkles size={24} /></div>
+                <div className="step-content">
+                  <span>02</span>
+                  <strong>Parsing</strong>
+                  <small>Extract profile</small>
+                </div>
               </div>
 
-              <i>→</i>
+              <div className="pipeline-connector">
+                <div className="connector-line"></div>
+              </div>
 
-              <div>
-                <span>04</span>
-                <strong>Ranking</strong>
-                <small>Best matches</small>
+              <div className="pipeline-step">
+                <div className="step-icon"><Search size={24} /></div>
+                <div className="step-content">
+                  <span>03</span>
+                  <strong>Semantic Search</strong>
+                  <small>Find relevant opportunities</small>
+                </div>
+              </div>
+
+              <div className="pipeline-connector">
+                <div className="connector-line"></div>
+              </div>
+
+              <div className="pipeline-step">
+                <div className="step-icon"><BarChart3 size={24} /></div>
+                <div className="step-content">
+                  <span>04</span>
+                  <strong>Ranking</strong>
+                  <small>Prioritize best matches</small>
+                </div>
               </div>
             </div>
           </section>
@@ -1695,7 +2019,7 @@ I am excited about the opportunity to apply my skills, learn from your team, and
 Thank you for considering my application. I would welcome the opportunity to discuss how my background and skills can contribute to your team.
 
 Sincerely,
-${userName || "Your Name"}
+${resumeData?.name || userName || "Your Name"}
 `.trim();
 
 
@@ -1841,36 +2165,55 @@ ${userName || "Your Name"}
         {/* APPLICATION CHECKLIST */}
 
         <section className="cover-checklist">
-
           <div className="section-kicker">
-            BEFORE SUBMITTING
+            APPLICATION READINESS
           </div>
+          <h2>Application Workflow</h2>
 
-          <h2>Quick application checklist</h2>
-
-
-          <div className="checklist-grid">
-
-            <div>
-              <span>✓</span>
-              <strong>Resume updated</strong>
-              <small>Use your latest version</small>
+          <div className="app-workflow">
+            <div className="app-step completed">
+              <div className="step-icon-wrap">
+                <FileText size={20} />
+                <div className="check-badge">✓</div>
+              </div>
+              <div className="step-details">
+                <span>01</span>
+                <strong>Resume</strong>
+                <small>Updated & ready</small>
+              </div>
             </div>
 
-            <div>
-              <span>✓</span>
-              <strong>Cover letter reviewed</strong>
-              <small>Personalize the AI draft</small>
+            <div className="workflow-connector">
+              <div className="w-line"></div>
             </div>
 
-            <div>
-              <span>✓</span>
-              <strong>Skills checked</strong>
-              <small>Review the skill gap</small>
+            <div className="app-step completed">
+              <div className="step-icon-wrap">
+                <FileEdit size={20} />
+                <div className="check-badge">✓</div>
+              </div>
+              <div className="step-details">
+                <span>02</span>
+                <strong>Cover Letter</strong>
+                <small>Personalized draft</small>
+              </div>
             </div>
 
+            <div className="workflow-connector">
+              <div className="w-line"></div>
+            </div>
+
+            <div className="app-step active">
+              <div className="step-icon-wrap">
+                <Sparkles size={20} />
+              </div>
+              <div className="step-details">
+                <span>03</span>
+                <strong>Skills</strong>
+                <small>Gaps reviewed</small>
+              </div>
+            </div>
           </div>
-
         </section>
 
 
@@ -1932,9 +2275,16 @@ ${userName || "Your Name"}
                   <div className="resume-card-info">
                     <h3>{res.filename || "Resume"}</h3>
                     <div className="resume-card-meta">
+                      <span>{res.name || "Unknown Candidate"}</span>
+                      <span>·</span>
                       <span>Uploaded {res.uploaded_at ? new Date(res.uploaded_at).toLocaleDateString() : "—"}</span>
+                      <span>·</span>
+                      <span>{res.skills_count || 0} skills</span>
                     </div>
                   </div>
+                  
+
+
                   <div className="resume-card-actions">
                     {resumeId === res.id ? (
                       <span style={{color: "var(--purple)", fontWeight: "700", border: "1px solid var(--purple)", padding: "4px 12px", borderRadius: "8px", fontSize: "12px"}}>Active</span>
@@ -1959,11 +2309,12 @@ ${userName || "Your Name"}
       <div className="main-area">
         {content}
       </div>
+      <Chatbot />
     </div>
   );
 }
 
-function Sidebar({ screen, setScreen, selectedInternship, profile, userName, email, logout, sidebarOpen, setSidebarOpen, matches, sidebarCollapsed, setSidebarCollapsed }) {
+function Sidebar({ screen, setScreen, selectedInternship, profile, userName, email, logout, sidebarOpen, setSidebarOpen, matches, sidebarCollapsed, setSidebarCollapsed, darkMode, setDarkMode }) {
   const navItems = [
     { section: "WORKSPACE", items: [
       { label: "Dashboard", icon: LayoutDashboard, target: "dashboard", activeScreens: ["dashboard", "extraction"] },
@@ -2038,9 +2389,16 @@ function Sidebar({ screen, setScreen, selectedInternship, profile, userName, ema
               <span>{profile.email || email || ""}</span>
             </div>
           </div>
-          <button className="sidebar-logout" onClick={logout}>
+          <button className="sidebar-theme-toggle" onClick={() => {
+            setDarkMode(!darkMode);
+          }} title="Toggle Theme" style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', width: '100%', justifyContent: 'flex-start', transition: 'color 0.2s', marginTop: 'auto' }}>
+            {darkMode ? <Sun size={18} /> : <Moon size={18} />}
+            {!sidebarCollapsed && <span>{darkMode ? "Light Mode" : "Dark Mode"}</span>}
+          </button>
+          
+          <button className="sidebar-logout" onClick={logout} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', background: 'transparent', border: 'none', color: 'var(--muted)', cursor: 'pointer', width: '100%', justifyContent: 'flex-start', transition: 'color 0.2s' }}>
             <LogOut size={16} />
-            <span>Logout</span>
+            {!sidebarCollapsed && <span>Logout</span>}
           </button>
         </div>
       </aside>
