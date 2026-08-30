@@ -1,0 +1,22 @@
+# Environment variables
+.env
+.env.*
+env_dump.txt
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Chroma DB
+app/data/chroma_db/
+
+# Uploads
+app/uploads/
+
+# SQLite Database (generated)
+resume_parser.db
+
+# Misc
+.DS_Store

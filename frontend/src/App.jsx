@@ -6,19 +6,185 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 
 
-function Chatbot() {
+function Chatbot({ token }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([{ sender: "bot", text: "Hi! I'm your AI Career Copilot. How can I help you today?" }]);
+  const [showHistory, setShowHistory] = useState(false);
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
+  const [sessions, setSessions] = useState([]);
+  const [currentSessionId, setCurrentSessionId] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  
+  // Fetch sessions on load
+  useEffect(() => {
+    if (isOpen && token) {
+      fetchSessions();
+    }
+  }, [isOpen, token]);
 
-  const handleSend = () => {
-    if (!input.trim()) return;
-    setMessages([...messages, { sender: "user", text: input }]);
-    setInput("");
-    setTimeout(() => {
-      setMessages((prev) => [...prev, { sender: "bot", text: "I'm a demo chatbot. I can help you prepare for interviews or improve your resume!" }]);
-    }, 1000);
+  const fetchSessions = async () => {
+    setHistoryLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/chat/sessions`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        
+        // Deduplicate and filter empty/New Chat sessions
+        const uniqueSessions = [];
+        const seen = new Set();
+        for (const s of data) {
+           // Skip older dummy test entries
+           if (s.title === "Test Root Cause" || s.title === "Test") continue;
+           // Skip empty "New Chat" sessions without user messages
+           if (s.title === "New Chat") continue;
+           
+           if (!seen.has(s.id)) {
+               seen.add(s.id);
+               uniqueSessions.push(s);
+           }
+        }
+        
+        setSessions(uniqueSessions);
+        
+        // Auto-select session if none selected
+        if (uniqueSessions.length > 0 && !currentSessionId) {
+          selectSession(uniqueSessions[0].id);
+        } else if (uniqueSessions.length === 0 && !currentSessionId) {
+          startNewChat();
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch sessions", err);
+    } finally {
+      setHistoryLoading(false);
+    }
   };
+
+  const startNewChat = () => {
+    setCurrentSessionId(null);
+    setMessages([{ sender: "bot", text: "Hi! I'm your AI Product Assistant. How can I help you today?" }]);
+    setShowHistory(false);
+  };
+
+  const selectSession = async (sessionId) => {
+    setCurrentSessionId(sessionId);
+    setShowHistory(false);
+    setLoading(true);
+    try {
+      const res = await fetch(`${API_BASE}/chat/sessions/${sessionId}/messages`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (data.length === 0) {
+          setMessages([{ sender: "bot", text: "Hi! I'm your AI Product Assistant. How can I help you today?" }]);
+        } else {
+          setMessages(data.map(m => ({
+            sender: m.role === "assistant" ? "bot" : "user",
+            text: m.message
+          })));
+        }
+      }
+    } catch (err) {
+      console.error("Failed to fetch messages", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSend = async () => {
+    if (!input.trim() || !token) return;
+    
+    const userMessage = input;
+    setMessages(prev => [...prev, { sender: "user", text: userMessage }]);
+    setInput("");
+    setLoading(true);
+    
+    try {
+      let activeSessionId = currentSessionId;
+      
+      // If no active session, create one first
+      if (!activeSessionId) {
+        const title = userMessage.length > 35 ? userMessage.substring(0, 35) + '...' : userMessage;
+        const res = await fetch(`${API_BASE}/chat/sessions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({ title: title })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          activeSessionId = data.id;
+          setCurrentSessionId(data.id);
+        } else {
+          throw new Error("Failed to create session");
+        }
+      }
+      
+      const res = await fetch(`${API_BASE}/chat/sessions/${activeSessionId}/messages`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ message: userMessage })
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(prev => [...prev, { sender: "bot", text: data.message }]);
+        // Refresh sessions to update the session title if it was a newly created chat
+        fetchSessions();
+      } else {
+        setMessages(prev => [...prev, { sender: "bot", text: "Error: Could not get a response." }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { sender: "bot", text: "Network error: Could not reach the server." }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatTime = (isoString) => {
+    if (!isoString) return "";
+    const dateStr = isoString.endsWith('Z') || isoString.includes('+') ? isoString : isoString + 'Z';
+    const d = new Date(dateStr);
+    return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+  
+  const groupSessions = (sessions) => {
+    const groups = {};
+    const today = new Date().toDateString();
+    const yesterday = new Date(Date.now() - 86400000).toDateString();
+    
+    // Sort newest first
+    const sorted = [...sessions].sort((a, b) => {
+      const aDate = new Date(a.updated_at?.endsWith('Z') || a.updated_at?.includes('+') ? a.updated_at : (a.updated_at || a.created_at) + 'Z');
+      const bDate = new Date(b.updated_at?.endsWith('Z') || b.updated_at?.includes('+') ? b.updated_at : (b.updated_at || b.created_at) + 'Z');
+      return bDate - aDate;
+    });
+
+    sorted.forEach(s => {
+      const dateStr = s.updated_at?.endsWith('Z') || s.updated_at?.includes('+') ? s.updated_at : (s.updated_at || s.created_at) + 'Z';
+      const d = new Date(dateStr);
+      const dateString = d.toDateString();
+      let label = dateString;
+      if (dateString === today) label = "TODAY";
+      else if (dateString === yesterday) label = "YESTERDAY";
+      else label = dateString.toUpperCase();
+      
+      if (!groups[label]) groups[label] = [];
+      groups[label].push(s);
+    });
+    return groups;
+  };
+
+  const sessionGroups = groupSessions(sessions);
 
   return (
     <>
@@ -40,74 +206,152 @@ function Chatbot() {
       {isOpen && (
         <div className="chatbot-panel" style={{
           position: 'fixed', bottom: '30px', right: '30px', width: '350px', height: '500px',
-          background: 'white', borderRadius: '16px', display: 'flex', flexDirection: 'column',
+          background: 'var(--surface)', borderRadius: '16px', display: 'flex', flexDirection: 'column',
           overflow: 'hidden', zIndex: 1000,
-          animation: 'fadeIn 0.3s ease'
+          animation: 'fadeIn 0.3s ease',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
         }}>
           <div className="chatbot-header" style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px',
             borderBottom: '1px solid var(--border)'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ width: '32px', height: '32px', borderRadius: '8px', background: 'var(--purple-soft)', color: 'var(--purple)', display: 'grid', placeItems: 'center' }}>
+              <div className="chatbot-icon" style={{ width: '32px', height: '32px', borderRadius: '8px', display: 'grid', placeItems: 'center' }}>
                 <Sparkles size={18} />
               </div>
-              <div>
+              <div className="chatbot-titles">
                 <strong style={{ display: 'block', fontSize: '14px', lineHeight: '1.2' }}>Product Assistant</strong>
-                <span style={{ fontSize: '12px', color: 'var(--muted)' }}>Online</span>
+                <span style={{ fontSize: '12px' }}>Online</span>
               </div>
             </div>
-            <button onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', color: 'var(--muted)', cursor: 'pointer', padding: '4px' }}>
-              <X size={20} />
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button 
+                onClick={() => setShowHistory(!showHistory)}
+                style={{ background: showHistory ? 'var(--purple)' : 'transparent', color: showHistory ? 'white' : 'var(--text)', border: '1px solid var(--border)', cursor: 'pointer', padding: '4px 8px', borderRadius: '8px', fontSize: '12px', transition: 'all 0.2s' }}
+              >
+                History
+              </button>
+              <button className="chatbot-close" onClick={() => setIsOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}>
+                <X size={20} />
+              </button>
+            </div>
           </div>
-
-          <div className="chatbot-messages" style={{
-            flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px'
-          }}>
-            {messages.map((msg, idx) => (
-              <div key={idx} className={`chatbot-msg ${msg.sender}`} style={{
-                display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start'
+          
+          {showHistory ? (
+            <div style={{ flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <button 
+                onClick={startNewChat}
+                style={{
+                  width: '100%', padding: '12px', borderRadius: '8px', border: '1px dashed var(--purple)',
+                  background: 'transparent', color: 'var(--purple)', cursor: 'pointer', fontSize: '14px',
+                  fontWeight: '500', transition: 'background 0.2s'
+                }}
+                onMouseOver={(e) => e.target.style.background = 'rgba(124, 58, 237, 0.05)'}
+                onMouseOut={(e) => e.target.style.background = 'transparent'}
+              >
+                + New Chat
+              </button>
+              
+              {historyLoading && sessions.length === 0 ? (
+                <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '13px', marginTop: '20px' }}>Loading history...</div>
+              ) : sessions.length === 0 ? (
+                <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '13px', marginTop: '20px' }}>No chat history found.</div>
+              ) : (
+                Object.entries(sessionGroups).map(([label, groupSessions]) => (
+                  <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <div style={{ 
+                      fontSize: '11px', fontWeight: 'bold', color: 'var(--muted)', letterSpacing: '0.5px',
+                      borderBottom: '1px solid var(--border)', paddingBottom: '4px', marginBottom: '4px'
+                    }}>
+                      {label}
+                    </div>
+                    {groupSessions.map(s => (
+                      <div 
+                        key={s.id} 
+                        onClick={() => selectSession(s.id)}
+                        style={{
+                          padding: '10px', borderRadius: '8px', cursor: 'pointer',
+                          background: currentSessionId === s.id ? 'var(--purple)' : 'var(--surface)',
+                          color: currentSessionId === s.id ? 'white' : 'var(--text)',
+                          border: currentSessionId === s.id ? 'none' : '1px solid var(--border)',
+                          transition: 'background 0.2s',
+                          display: 'flex', flexDirection: 'column', gap: '4px'
+                        }}
+                      >
+                        <div style={{ fontSize: '13px', fontWeight: '500', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {s.title}
+                        </div>
+                        <div style={{ fontSize: '11px', color: currentSessionId === s.id ? 'rgba(255, 255, 255, 0.8)' : 'var(--muted)' }}>
+                          {formatTime(s.updated_at || s.created_at)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))
+              )}
+            </div>
+          ) : (
+            <>
+              <div className="chatbot-messages" style={{
+                flex: 1, overflowY: 'auto', padding: '16px', display: 'flex', flexDirection: 'column', gap: '12px'
               }}>
-                <div className="chatbot-msg-bubble" style={{
-                  maxWidth: '80%', padding: '10px 14px', borderRadius: '12px',
-                  background: msg.sender === 'user' ? 'var(--purple)' : 'var(--surface)',
-                  color: msg.sender === 'user' ? 'white' : 'var(--text)',
-                  border: msg.sender === 'user' ? 'none' : '1px solid var(--border)',
-                  fontSize: '13px', lineHeight: '1.4',
-                  borderBottomRightRadius: msg.sender === 'user' ? '4px' : '12px',
-                  borderBottomLeftRadius: msg.sender === 'bot' ? '4px' : '12px'
-                }}>
-                  {msg.text}
-                </div>
+                {loading && messages.length === 0 ? (
+                  <div style={{textAlign: 'center', color: 'var(--muted)', fontSize: '12px', marginTop: '20px'}}>Loading...</div>
+                ) : (
+                  messages.map((msg, idx) => (
+                    <div key={idx} className={`chatbot-msg ${msg.sender}`} style={{
+                      display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start'
+                    }}>
+                      <div className="chatbot-msg-bubble" style={{
+                        maxWidth: '80%', padding: '10px 14px', borderRadius: '12px',
+                        background: msg.sender === 'user' ? 'var(--purple)' : 'var(--surface)',
+                        color: msg.sender === 'user' ? 'white' : 'var(--text)',
+                        border: msg.sender === 'user' ? 'none' : '1px solid var(--border)',
+                        fontSize: '13px', lineHeight: '1.4',
+                        borderBottomRightRadius: msg.sender === 'user' ? '4px' : '12px',
+                        borderBottomLeftRadius: msg.sender === 'bot' ? '4px' : '12px'
+                      }}>
+                        {msg.text}
+                      </div>
+                    </div>
+                  ))
+                )}
+                {loading && messages.length > 0 && (
+                  <div className="chatbot-msg bot" style={{ display: 'flex', justifyContent: 'flex-start' }}>
+                    <div className="chatbot-msg-bubble" style={{ padding: '10px 14px', borderRadius: '12px', borderBottomLeftRadius: '4px', fontSize: '13px' }}>
+                      <span className="typing-dots">...</span>
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
 
-          <div className="chatbot-input-row" style={{
-            padding: '16px', borderTop: '1px solid var(--border)', display: 'flex', gap: '10px'
-          }}>
-            <input 
-              className="chatbot-input"
-              type="text" 
-              placeholder="Ask me anything..." 
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              style={{
-                flex: 1, padding: '10px 14px', borderRadius: '8px', border: '1px solid var(--border)', outline: 'none'
-              }}
-            />
-            <button 
-              onClick={handleSend}
-              style={{
-                background: 'var(--purple)', color: 'white', border: 'none', borderRadius: '8px',
-                width: '40px', display: 'grid', placeItems: 'center', cursor: 'pointer'
-              }}
-            >
-              <Send size={16} />
-            </button>
-          </div>
+              <div className="chatbot-input-row" style={{
+                padding: '16px', display: 'flex', gap: '10px'
+              }}>
+                <input 
+                  className="chatbot-input"
+                  type="text" 
+                  placeholder="Ask me anything..." 
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                  style={{
+                    flex: 1, padding: '10px 14px', borderRadius: '8px', outline: 'none'
+                  }}
+                />
+                <button 
+                  className="chatbot-send"
+                  onClick={handleSend}
+                  style={{
+                    background: 'var(--purple)', color: 'white', border: 'none', borderRadius: '8px',
+                    width: '40px', display: 'grid', placeItems: 'center', cursor: 'pointer'
+                  }}
+                >
+                  <Send size={16} />
+                </button>
+              </div>
+            </>
+          )}
         </div>
       )}
     </>
@@ -2309,7 +2553,7 @@ ${resumeData?.name || userName || "Your Name"}
       <div className="main-area">
         {content}
       </div>
-      <Chatbot />
+      <Chatbot token={token || localStorage.getItem("access_token")} />
     </div>
   );
 }
