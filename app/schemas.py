@@ -2,10 +2,11 @@ from pydantic import BaseModel, EmailStr, ConfigDict, Field
 
 
 class UserCreate(BaseModel):
-    full_name: str
+    name: str | None = None
+    full_name: str | None = None
     email: EmailStr
     password: str
-    role: str
+    role: str = "student"
 
 
 class UserLogin(BaseModel):
@@ -82,3 +83,28 @@ class InternshipMatchResponse(BaseModel):
 class InternshipListResponse(BaseModel):
     total: int
     internships: list[dict]
+
+
+from datetime import datetime
+
+class ChatSessionCreate(BaseModel):
+    title: str | None = "New Chat"
+
+class ChatSessionResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    user_id: int
+    title: str
+    created_at: datetime
+    updated_at: datetime
+
+class ChatMessageCreate(BaseModel):
+    message: str
+
+class ChatMessageResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    id: int
+    session_id: int
+    role: str
+    message: str
+    created_at: datetime

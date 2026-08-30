@@ -26,8 +26,10 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
             detail="Email already registered"
         )
 
+    actual_name = user_data.full_name or user_data.name or ""
+    
     user = User(
-        full_name=user_data.full_name,
+        full_name=actual_name,
         email=user_data.email,
         password=hash_password(user_data.password),
         role=user_data.role,
