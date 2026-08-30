@@ -32,7 +32,7 @@ class LLMParser:
     structured information with higher accuracy than regex.
     """
 
-    def __init__(self, api_key: Optional[str] = None, model: str = "llama-3.3-70b-versatile"):
+    def __init__(self, api_key: Optional[str] = None, model: str = "openai/gpt-oss-120b"):
         """
         Initialize the LLM parser.
 
@@ -159,7 +159,7 @@ Resume Text:
 def parse_resume_with_llm(
     text: str,
     api_key: Optional[str] = None,
-    model: str = "llama-3.3-70b-versatile"
+    model: str = "openai/gpt-oss-120b"
 ) -> dict:
     """
     Convenience function to parse resume text using LLM.
