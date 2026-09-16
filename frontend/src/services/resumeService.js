@@ -14,3 +14,8 @@ export const fetchAllResumes = async () => {
   const response = await api.get("/resume/all");
   return response.data;
 };
+
+export const activateResume = async (resumeId) => {
+  const response = await api.post(`/resume/${resumeId}/activate`);
+  return response.data;
+};

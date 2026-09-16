@@ -72,13 +72,16 @@ async def upload_resume(
     "suggestions": analysis["suggestions"],
 }
 
-    resume = Resume(
-    filename=file.filename,
-    parsed_data=json.dumps(parsed_result),
-    user_id=current_user.id
-) 
+    # Deactivate existing resumes for this user
+    db.query(Resume).filter(Resume.user_id == current_user.id).update({"is_active": False})
 
-    
+    resume = Resume(
+        filename=file.filename,
+        parsed_data=json.dumps(parsed_result),
+        user_id=current_user.id,
+        is_active=True,
+    )
+
     db.add(resume)
     db.commit()
     db.refresh(resume)
@@ -136,4 +139,32 @@ def get_resume(resume_id: int, db: Session = Depends(get_db), current_user: User
         "filename": resume.filename,
         "uploaded_at": str(resume.uploaded_at),
         **parsed,
-    }
+    }
+
+
+@router.post("/{resume_id}/activate")
+def activate_resume(resume_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    """Set a resume as the active resume for the authenticated user."""
+    resume = db.query(Resume).filter(Resume.id == resume_id, Resume.user_id == current_user.id).first()
+    if not resume:
+        raise HTTPException(status_code=404, detail="Resume not found")
+
+    # Deactivate all resumes for this user
+    db.query(Resume).filter(Resume.user_id == current_user.id).update({"is_active": False})
+    # Activate the selected one
+    resume.is_active = True
+    db.commit()
+    db.refresh(resume)
+
+    try:
+        parsed = json.loads(resume.parsed_data or "{}")
+    except Exception:
+        parsed = {}
+
+    return {
+        "id": resume.id,
+        "filename": resume.filename,
+        "uploaded_at": str(resume.uploaded_at),
+        "is_active": True,
+        **parsed,
+    }
