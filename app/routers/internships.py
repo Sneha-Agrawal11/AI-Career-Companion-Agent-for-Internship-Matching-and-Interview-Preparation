@@ -10,13 +10,14 @@ from sqlalchemy.orm import Session
 
 from app.auth import get_current_user
 from app.database import get_db
-from app.models import Resume, User
+from app.models import Application, Resume, User
 from app.resume_parser import normalize_candidate_data
 from app.schemas import (
     CandidateInput,
     InternshipListResponse,
     InternshipMatchResponse,
 )
+from app.services.internship_matcher import _skills_match
 from app.services.rag_service import get_rag_matches
 from app.services.vector_store import (
     build_and_save_index,
@@ -51,6 +52,90 @@ def build_index(
 def list_internships() -> InternshipListResponse:
     internships = load_internships()
     return InternshipListResponse(total=len(internships), internships=internships)
+
+
+@router.get("/match-all")
+def match_all_internships(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Return ALL internships with per-internship skill match info for the user's active resume."""
+    resumes = db.query(Resume).filter(Resume.user_id == current_user.id).all()
+    internships = load_internships()
+
+    if not resumes:
+        return {
+            "has_active_resume": False,
+            "reason": "NO_RESUME",
+            "internships": internships,
+            "applications": [],
+        }
+
+    active = (
+        db.query(Resume)
+        .filter(Resume.user_id == current_user.id, Resume.is_active == True)  # noqa: E712
+        .first()
+    )
+
+    if not active:
+        return {
+            "has_active_resume": False,
+            "reason": "NO_ACTIVE_RESUME",
+            "internships": internships,
+            "applications": [],
+        }
+
+    try:
+        parsed: dict[str, Any] = json.loads(active.parsed_data or "{}")
+    except json.JSONDecodeError:
+        parsed = {}
+
+    normalized = normalize_candidate_data(parsed)
+
+    user_apps = db.query(Application).filter(Application.user_id == current_user.id).all()
+    applied_ids = {a.internship_id for a in user_apps}
+
+    results: list[dict[str, Any]] = []
+    for internship in internships:
+        matched_skills, missing_skills, pct = _skills_match(normalized, internship)
+        results.append(
+            {
+                **internship,
+                "is_match": len(missing_skills) == 0,
+                "match_score": pct,
+                "matched_skills": matched_skills,
+                "missing_skills": missing_skills,
+                "already_applied": internship.get("id") in applied_ids,
+            }
+        )
+
+    return {
+        "has_active_resume": True,
+        "active_resume_id": active.id,
+        "active_resume_filename": active.filename,
+        "resume_skills": normalized.get("skills", []),
+        "internships": results,
+        "applications": list(applied_ids),
+    }
+
+
+@router.get("/applications")
+def get_user_applications(
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Return the authenticated user's internship applications."""
+    apps = db.query(Application).filter(Application.user_id == current_user.id).all()
+    return [
+        {
+            "id": a.id,
+            "internship_id": a.internship_id,
+            "resume_id": a.resume_id,
+            "applied_at": str(a.applied_at),
+            "status": a.status,
+        }
+        for a in apps
+    ]
 
 
 @router.get("/{internship_id}")
@@ -130,3 +215,50 @@ def match_from_resume_id(
         },
         matches=matches,
     )
+
+
+@router.post("/{internship_id}/apply")
+def apply_to_internship(
+    internship_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    """Apply to an internship using the user's active resume."""
+    internship = get_internship_by_id(internship_id)
+    if not internship:
+        raise HTTPException(status_code=404, detail="Internship not found")
+
+    active = (
+        db.query(Resume)
+        .filter(Resume.user_id == current_user.id, Resume.is_active == True)  # noqa: E712
+        .first()
+    )
+    if not active:
+        raise HTTPException(status_code=400, detail="No active resume. Please activate a resume first.")
+
+    existing = (
+        db.query(Application)
+        .filter(
+            Application.user_id == current_user.id,
+            Application.internship_id == internship_id,
+        )
+        .first()
+    )
+    if existing:
+        raise HTTPException(status_code=409, detail="You have already applied to this internship.")
+
+    application = Application(
+        user_id=current_user.id,
+        internship_id=internship_id,
+        resume_id=active.id,
+    )
+    db.add(application)
+    db.commit()
+    db.refresh(application)
+
+    return {
+        "message": "Application submitted successfully",
+        "application_id": application.id,
+        "internship_id": internship_id,
+        "resume_id": active.id,
+    }

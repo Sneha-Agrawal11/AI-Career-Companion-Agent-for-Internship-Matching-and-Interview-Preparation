@@ -16,3 +16,18 @@ export const fetchMatches = async (candidate, topK = 5) => {
   });
   return response.data;
 };
+
+export const fetchInternshipsWithMatch = async () => {
+  const response = await api.get("/internships/match-all");
+  return response.data;
+};
+
+export const applyToInternship = async (internshipId) => {
+  const response = await api.post(`/internships/${internshipId}/apply`);
+  return response.data;
+};
+
+export const fetchApplications = async () => {
+  const response = await api.get("/internships/applications");
+  return response.data;
+};
