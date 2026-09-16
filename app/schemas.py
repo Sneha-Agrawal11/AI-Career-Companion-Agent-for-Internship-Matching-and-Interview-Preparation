@@ -95,11 +95,14 @@ class ChatSessionResponse(BaseModel):
     id: int
     user_id: int
     title: str
+    agent_type: str | None = "product"
     created_at: datetime
     updated_at: datetime
 
 class ChatMessageCreate(BaseModel):
     message: str
+    internship_id: int | None = None
+    include_resume: bool = True
 
 class ChatMessageResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)

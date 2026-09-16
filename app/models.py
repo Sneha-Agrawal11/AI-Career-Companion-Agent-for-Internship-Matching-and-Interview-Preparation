@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy import Boolean, Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
@@ -25,6 +25,7 @@ class Resume(Base):
     filename = Column(String)
     parsed_data = Column(Text)
     uploaded_at = Column(DateTime, default=datetime.utcnow)
+    is_active = Column(Boolean, default=False)
     user_id = Column(Integer, ForeignKey("users.id"))
 
     user = relationship("User", back_populates="resumes")
@@ -36,6 +37,7 @@ class ChatSession(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), index=True)
     title = Column(String)
+    agent_type = Column(String, default="product")  # 'product' or 'preparation'
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -53,3 +55,14 @@ class ChatMessage(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     session = relationship("ChatSession", back_populates="messages")
+
+
+class Application(Base):
+    __tablename__ = "applications"
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), index=True)
+    internship_id = Column(Integer, index=True)
+    resume_id = Column(Integer, ForeignKey("resumes.id"))
+    applied_at = Column(DateTime, default=datetime.utcnow)
+    status = Column(String, default="submitted")

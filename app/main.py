@@ -23,6 +23,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://127.0.0.1:5173",
+        "http://localhost:5174",
+        "http://127.0.0.1:5174",
     ],
     allow_credentials=True,
     allow_methods=["*"],
@@ -31,11 +33,30 @@ app.add_middleware(
 
 Base.metadata.create_all(bind=engine)
 
+# Migrate: add is_active column to resumes table if not present
+from sqlalchemy import inspect as sa_inspect, text as sa_text
+_inspector = sa_inspect(engine)
+_resume_cols = [c["name"] for c in _inspector.get_columns("resumes")]
+if "is_active" not in _resume_cols:
+    with engine.connect() as _conn:
+        _conn.execute(sa_text("ALTER TABLE resumes ADD COLUMN is_active BOOLEAN DEFAULT 0"))
+        _conn.commit()
+
+# Migrate: add agent_type column to chat_sessions table if not present
+_chat_cols = [c["name"] for c in _inspector.get_columns("chat_sessions")]
+if "agent_type" not in _chat_cols:
+    with engine.connect() as _conn:
+        _conn.execute(sa_text("ALTER TABLE chat_sessions ADD COLUMN agent_type VARCHAR DEFAULT 'product'"))
+        _conn.commit()
+
+from app.routers.prep_agent import router as prep_agent_router
+
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(resume_router)
 app.include_router(internship_router)
 app.include_router(chat_router)
+app.include_router(prep_agent_router)
 
 @app.get("/")
 def read_root():
