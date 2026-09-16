@@ -1,12 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import or_
 from typing import List
+import json
 
 from app.database import get_db
-from app.models import User, ChatSession, ChatMessage
+from app.models import User, ChatSession, ChatMessage, Resume
 from app.schemas import ChatSessionCreate, ChatSessionResponse, ChatMessageCreate, ChatMessageResponse
 from app.dependencies import get_current_user
 from app.services.chat_service import chat_service
+from app.services.vector_store import get_internship_by_id
 
 router = APIRouter(
     prefix="/chat",
@@ -19,8 +22,16 @@ def get_user_sessions(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    """Retrieve all chat sessions for the authenticated user."""
-    sessions = db.query(ChatSession).filter(ChatSession.user_id == current_user.id).order_by(ChatSession.updated_at.desc()).all()
+    """Retrieve all chat sessions for the authenticated user (Product Assistant only)."""
+    sessions = (
+        db.query(ChatSession)
+        .filter(
+            ChatSession.user_id == current_user.id,
+            or_(ChatSession.agent_type == "product", ChatSession.agent_type == None),
+        )
+        .order_by(ChatSession.updated_at.desc())
+        .all()
+    )
     return sessions
 
 @router.post("/sessions", response_model=ChatSessionResponse)
@@ -29,10 +40,11 @@ def create_session(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    """Create a new chat session for the authenticated user."""
+    """Create a new chat session for the authenticated user (Product Assistant)."""
     db_session = ChatSession(
         user_id=current_user.id,
-        title=session_in.title
+        title=session_in.title,
+        agent_type="product",
     )
     db.add(db_session)
     db.commit()
@@ -90,8 +102,34 @@ def send_message(
     # Exclude the current message we just added from history, format for LLM
     chat_history = [{"role": m.role, "message": m.message} for m in history_records[:-1]]
     
-    # Generate AI response via service
-    ai_text = chat_service.generate_response(user_message.message, chat_history)
+    # --- Fetch context data for the authenticated user ---
+    
+    # 1. Active resume (if include_resume is True, which is the default)
+    resume_data = None
+    if message_in.include_resume:
+        active_resume = (
+            db.query(Resume)
+            .filter(Resume.user_id == current_user.id, Resume.is_active == True)  # noqa: E712
+            .first()
+        )
+        if active_resume:
+            try:
+                resume_data = json.loads(active_resume.parsed_data or "{}")
+            except json.JSONDecodeError:
+                resume_data = None
+    
+    # 2. Internship data (if internship_id is provided)
+    internship_data = None
+    if message_in.internship_id:
+        internship_data = get_internship_by_id(message_in.internship_id)
+    
+    # Generate AI response via service with context
+    ai_text = chat_service.generate_response(
+        user_message=message_in.message,
+        chat_history=chat_history,
+        resume_data=resume_data,
+        internship_data=internship_data,
+    )
     
     # Store AI message
     ai_message = ChatMessage(

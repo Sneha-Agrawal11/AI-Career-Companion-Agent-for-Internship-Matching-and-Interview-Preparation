@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { LayoutDashboard, User, Search, Send, BarChart3, FileEdit, LogOut, Menu, X, ChevronsLeft, ChevronsRight, FileText, Sun, Moon, Bot, Sparkles, Briefcase } from "lucide-react";
+import { LayoutDashboard, User, Search, Send, BarChart3, FileEdit, LogOut, Menu, X, ChevronsLeft, ChevronsRight, FileText, Sun, Moon, Bot, Sparkles, Briefcase, GraduationCap, Paperclip, Plus, MessageSquare, Trash2, ChevronDown } from "lucide-react";
 import "./App.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 
 
-function Chatbot({ token }) {
+function Chatbot({ token, selectedInternship }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -16,6 +16,15 @@ function Chatbot({ token }) {
   const [loading, setLoading] = useState(false);
   const [historyLoading, setHistoryLoading] = useState(false);
   
+  const quickActions = [
+    { label: "🔍 Find Internships", text: "Which internships match my profile?" },
+    { label: "📄 Analyze Resume", text: "Analyze my resume and suggest improvements." },
+    { label: "🎯 Prepare for Interview", text: "Prepare me for an internship interview." },
+    { label: "🎤 Mock Interview", text: "Take my mock interview." },
+    { label: "📊 Skill Gap", text: "What is Skill Gap analysis in InternMatch?" },
+    { label: "❓ Ask Anything", text: "What features does InternMatch provide?" },
+  ];
+
   // Fetch sessions on load
   useEffect(() => {
     if (isOpen && token) {
@@ -65,7 +74,7 @@ function Chatbot({ token }) {
 
   const startNewChat = () => {
     setCurrentSessionId(null);
-    setMessages([{ sender: "bot", text: "Hi! I'm your AI Product Assistant. How can I help you today?" }]);
+    setMessages([{ sender: "bot", text: "Hi! I'm your **AI Career Assistant**. I can help you with:\n\n• InternMatch features & product questions\n• Resume analysis & career advice\n• Internship matching & recommendations\n• Mock interviews & interview preparation\n\nHow can I help you today?" }]);
     setShowHistory(false);
   };
 
@@ -80,7 +89,7 @@ function Chatbot({ token }) {
       if (res.ok) {
         const data = await res.json();
         if (data.length === 0) {
-          setMessages([{ sender: "bot", text: "Hi! I'm your AI Product Assistant. How can I help you today?" }]);
+          setMessages([{ sender: "bot", text: "Hi! I'm your **AI Career Assistant**. How can I help you today?" }]);
         } else {
           setMessages(data.map(m => ({
             sender: m.role === "assistant" ? "bot" : "user",
@@ -95,11 +104,10 @@ function Chatbot({ token }) {
     }
   };
 
-  const handleSend = async () => {
-    if (!input.trim() || !token) return;
+  const sendMessageToBackend = async (messageText) => {
+    if (!messageText.trim() || !token) return;
     
-    const userMessage = input;
-    setMessages(prev => [...prev, { sender: "user", text: userMessage }]);
+    setMessages(prev => [...prev, { sender: "user", text: messageText }]);
     setInput("");
     setLoading(true);
     
@@ -108,7 +116,7 @@ function Chatbot({ token }) {
       
       // If no active session, create one first
       if (!activeSessionId) {
-        const title = userMessage.length > 35 ? userMessage.substring(0, 35) + '...' : userMessage;
+        const title = messageText.length > 35 ? messageText.substring(0, 35) + '...' : messageText;
         const res = await fetch(`${API_BASE}/chat/sessions`, {
           method: "POST",
           headers: {
@@ -126,13 +134,23 @@ function Chatbot({ token }) {
         }
       }
       
+      // Build the message payload with context
+      const payload = { message: messageText };
+      
+      // Include internship context if one is currently selected/viewed
+      if (selectedInternship && selectedInternship.id) {
+        payload.internship_id = selectedInternship.id;
+      } else if (selectedInternship && selectedInternship.internship_id) {
+        payload.internship_id = selectedInternship.internship_id;
+      }
+      
       const res = await fetch(`${API_BASE}/chat/sessions/${activeSessionId}/messages`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ message: userMessage })
+        body: JSON.stringify(payload)
       });
       
       if (res.ok) {
@@ -148,6 +166,14 @@ function Chatbot({ token }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSend = async () => {
+    await sendMessageToBackend(input);
+  };
+
+  const handleQuickAction = async (text) => {
+    await sendMessageToBackend(text);
   };
 
   const formatTime = (isoString) => {
@@ -184,7 +210,24 @@ function Chatbot({ token }) {
     return groups;
   };
 
+  // Simple markdown-like formatting for bot messages
+  const formatBotMessage = (text) => {
+    if (!text) return text;
+    // Bold: **text**
+    let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Bullet points: lines starting with • or -
+    formatted = formatted.replace(/^[•\-]\s+(.*)$/gm, '<span style="display:block;padding-left:12px;margin:2px 0">• $1</span>');
+    // Numbered items: lines starting with number.
+    formatted = formatted.replace(/^(\d+)\.\s+(.*)$/gm, '<span style="display:block;padding-left:12px;margin:2px 0">$1. $2</span>');
+    // Line breaks
+    formatted = formatted.replace(/\n/g, '<br/>');
+    return formatted;
+  };
+
   const sessionGroups = groupSessions(sessions);
+
+  // Check if we're in a fresh/new chat state (for showing quick actions)
+  const isNewChat = messages.length <= 1 && !loading;
 
   return (
     <>
@@ -205,7 +248,7 @@ function Chatbot({ token }) {
 
       {isOpen && (
         <div className="chatbot-panel" style={{
-          position: 'fixed', bottom: '30px', right: '30px', width: '350px', height: '500px',
+          position: 'fixed', bottom: '30px', right: '30px', width: '380px', height: '550px',
           background: 'var(--surface)', borderRadius: '16px', display: 'flex', flexDirection: 'column',
           overflow: 'hidden', zIndex: 1000,
           animation: 'fadeIn 0.3s ease',
@@ -220,8 +263,10 @@ function Chatbot({ token }) {
                 <Sparkles size={18} />
               </div>
               <div className="chatbot-titles">
-                <strong style={{ display: 'block', fontSize: '14px', lineHeight: '1.2' }}>Product Assistant</strong>
-                <span style={{ fontSize: '12px' }}>Online</span>
+                <strong style={{ display: 'block', fontSize: '14px', lineHeight: '1.2' }}>AI Career Assistant</strong>
+                <span style={{ fontSize: '11px', opacity: 0.7 }}>
+                  {selectedInternship ? `📌 ${selectedInternship.title || 'Internship selected'}` : 'Online'}
+                </span>
               </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
@@ -303,19 +348,48 @@ function Chatbot({ token }) {
                       display: 'flex', justifyContent: msg.sender === 'user' ? 'flex-end' : 'flex-start'
                     }}>
                       <div className="chatbot-msg-bubble" style={{
-                        maxWidth: '80%', padding: '10px 14px', borderRadius: '12px',
+                        maxWidth: '85%', padding: '10px 14px', borderRadius: '12px',
                         background: msg.sender === 'user' ? 'var(--purple)' : 'var(--surface)',
                         color: msg.sender === 'user' ? 'white' : 'var(--text)',
                         border: msg.sender === 'user' ? 'none' : '1px solid var(--border)',
-                        fontSize: '13px', lineHeight: '1.4',
+                        fontSize: '13px', lineHeight: '1.5',
                         borderBottomRightRadius: msg.sender === 'user' ? '4px' : '12px',
-                        borderBottomLeftRadius: msg.sender === 'bot' ? '4px' : '12px'
-                      }}>
-                        {msg.text}
+                        borderBottomLeftRadius: msg.sender === 'bot' ? '4px' : '12px',
+                        whiteSpace: 'pre-wrap', wordBreak: 'break-word'
+                      }}
+                        dangerouslySetInnerHTML={msg.sender === 'bot' ? { __html: formatBotMessage(msg.text) } : undefined}
+                      >
+                        {msg.sender === 'user' ? msg.text : undefined}
                       </div>
                     </div>
                   ))
                 )}
+                
+                {/* Quick action suggestions for new chats */}
+                {isNewChat && (
+                  <div style={{ 
+                    display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '8px',
+                    justifyContent: 'center'
+                  }}>
+                    {quickActions.map((action, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleQuickAction(action.text)}
+                        style={{
+                          padding: '6px 12px', borderRadius: '20px', fontSize: '11px',
+                          border: '1px solid var(--border)', background: 'var(--surface)',
+                          color: 'var(--text)', cursor: 'pointer', transition: 'all 0.2s',
+                          whiteSpace: 'nowrap',
+                        }}
+                        onMouseOver={(e) => { e.target.style.borderColor = 'var(--purple)'; e.target.style.color = 'var(--purple)'; }}
+                        onMouseOut={(e) => { e.target.style.borderColor = 'var(--border)'; e.target.style.color = 'var(--text)'; }}
+                      >
+                        {action.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+                
                 {loading && messages.length > 0 && (
                   <div className="chatbot-msg bot" style={{ display: 'flex', justifyContent: 'flex-start' }}>
                     <div className="chatbot-msg-bubble" style={{ padding: '10px 14px', borderRadius: '12px', borderBottomLeftRadius: '4px', fontSize: '13px' }}>
@@ -355,6 +429,319 @@ function Chatbot({ token }) {
         </div>
       )}
     </>
+  );
+}
+
+// ============================================================
+// PREPARATION AGENT — Full-page ChatGPT-like interface
+// ============================================================
+function PrepAgent({ token, selectedInternship, onBack }) {
+  const [sessions, setSessions] = useState([]);
+  const [activeSessionId, setActiveSessionId] = useState(null);
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [internshipId, setInternshipId] = useState(selectedInternship?.id || selectedInternship?.internship_id || null);
+  const [internships, setInternships] = useState([]);
+  const [showInternshipPicker, setShowInternshipPicker] = useState(false);
+  const [internshipSearch, setInternshipSearch] = useState("");
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const messagesEndRef = useState(null);
+
+  const API = `${API_BASE}/prep`;
+
+  // Scroll to bottom on new messages
+  useEffect(() => {
+    const el = document.getElementById('prep-messages-end');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
+
+  // Load sessions on mount
+  useEffect(() => {
+    fetchSessions();
+    fetchInternships();
+  }, []);
+
+  // Auto-set internship from prop
+  useEffect(() => {
+    if (selectedInternship) {
+      setInternshipId(selectedInternship.id || selectedInternship.internship_id || null);
+    }
+  }, [selectedInternship]);
+
+  const fetchSessions = async () => {
+    try {
+      const res = await fetch(`${API}/sessions`, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) setSessions(await res.json());
+    } catch (e) { console.error(e); }
+  };
+
+  const fetchInternships = async () => {
+    try {
+      const res = await fetch(`${API}/internships`, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) setInternships(await res.json());
+    } catch (e) { console.error(e); }
+  };
+
+  const selectSession = async (id) => {
+    setActiveSessionId(id);
+    setLoading(true);
+    try {
+      const res = await fetch(`${API}/sessions/${id}/messages`, { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data.map(m => ({ role: m.role, text: m.message })));
+      }
+    } catch (e) { console.error(e); }
+    setLoading(false);
+  };
+
+  const startNewChat = async () => {
+    setActiveSessionId(null);
+    setMessages([]);
+    setInput("");
+  };
+
+  const deleteSession = async (id, e) => {
+    e.stopPropagation();
+    try {
+      await fetch(`${API}/sessions/${id}`, { method: 'DELETE', headers: { Authorization: `Bearer ${token}` } });
+      if (activeSessionId === id) { setActiveSessionId(null); setMessages([]); }
+      fetchSessions();
+    } catch (e) { console.error(e); }
+  };
+
+  const handleSend = async () => {
+    if (!input.trim() || loading) return;
+    const text = input;
+    setInput("");
+    setMessages(prev => [...prev, { role: 'user', text }]);
+    setLoading(true);
+    try {
+      let sid = activeSessionId;
+      if (!sid) {
+        const title = text.length > 40 ? text.substring(0, 40) + '…' : text;
+        const r = await fetch(`${API}/sessions`, {
+          method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ title })
+        });
+        if (r.ok) { const d = await r.json(); sid = d.id; setActiveSessionId(d.id); }
+      }
+      const payload = { message: text };
+      if (internshipId) payload.internship_id = internshipId;
+      const res = await fetch(`${API}/sessions/${sid}/messages`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify(payload)
+      });
+      if (res.ok) {
+        const d = await res.json();
+        setMessages(prev => [...prev, { role: 'assistant', text: d.message }]);
+        fetchSessions();
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', text: 'Error: Could not get a response.' }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: 'assistant', text: 'Network error.' }]);
+    }
+    setLoading(false);
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingFile(true);
+    setMessages(prev => [...prev, { role: 'user', text: `📎 Uploaded: ${file.name}` }]);
+    try {
+      const fd = new FormData();
+      fd.append('file', file);
+      const res = await fetch(`${API}/upload`, {
+        method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const skills = data.parsed?.skills || [];
+        const score = data.parsed?.resume_score;
+        setMessages(prev => [...prev, {
+          role: 'assistant',
+          text: `✅ **${file.name}** uploaded and parsed successfully!\n\n**Skills found:** ${skills.join(', ') || 'None detected'}\n**Resume Score:** ${score || 'N/A'}\n\nThis resume is now active. Ask me to analyze it, find skill gaps, or prepare you for interviews!`
+        }]);
+      } else {
+        setMessages(prev => [...prev, { role: 'assistant', text: '❌ Failed to process the file. Please try a PDF or DOCX.' }]);
+      }
+    } catch (err) {
+      setMessages(prev => [...prev, { role: 'assistant', text: '❌ Upload failed. Network error.' }]);
+    }
+    setUploadingFile(false);
+    e.target.value = '';
+  };
+
+  const selectInternship = (intern) => {
+    setInternshipId(intern.id);
+    setShowInternshipPicker(false);
+    setInternshipSearch('');
+    setMessages(prev => [...prev, {
+      role: 'assistant',
+      text: `📌 Now preparing for: **${intern.title}** at **${intern.company}** (${intern.domain}).\n\nHow would you like to prepare? I can:\n• Create a preparation plan\n• Identify skill gaps\n• Start a mock interview\n• Ask technical questions\n• Practice behavioral questions`
+    }]);
+  };
+
+  const formatMsg = (text) => {
+    if (!text) return text;
+    let f = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    f = f.replace(/^[•\-]\s+(.*)$/gm, '<span style="display:block;padding-left:16px;margin:2px 0">• $1</span>');
+    f = f.replace(/^(\d+)\.\s+(.*)$/gm, '<span style="display:block;padding-left:16px;margin:2px 0">$1. $2</span>');
+    f = f.replace(/\n/g, '<br/>');
+    return f;
+  };
+
+  const filteredInternships = internships.filter(i =>
+    !internshipSearch || (i.title + ' ' + i.company + ' ' + i.domain).toLowerCase().includes(internshipSearch.toLowerCase())
+  );
+
+  const selectedInternInfo = internships.find(i => i.id === internshipId);
+  const isNewChat = messages.length === 0 && !loading;
+
+  return (
+    <div className="prep-agent">
+      {/* Sidebar */}
+      <div className={`prep-sidebar ${sidebarOpen ? '' : 'prep-sidebar-hidden'}`}>
+        <div className="prep-sidebar-header">
+          <button className="prep-new-chat" onClick={startNewChat}><Plus size={16}/> New Chat</button>
+        </div>
+        <div className="prep-session-list">
+          {sessions.map(s => (
+            <div
+              key={s.id}
+              className={`prep-session-item ${activeSessionId === s.id ? 'active' : ''}`}
+              onClick={() => selectSession(s.id)}
+            >
+              <MessageSquare size={14}/>
+              <span className="prep-session-title">{s.title}</span>
+              <button className="prep-session-delete" onClick={(e) => deleteSession(s.id, e)}><Trash2 size={12}/></button>
+            </div>
+          ))}
+          {sessions.length === 0 && <div className="prep-empty-sessions">No conversations yet</div>}
+        </div>
+        <div className="prep-sidebar-footer">
+          <button onClick={onBack} className="prep-back-btn"><ChevronsLeft size={14}/> Back to InternMatch</button>
+        </div>
+      </div>
+
+      {/* Main area */}
+      <div className="prep-main">
+        {/* Top bar */}
+        <div className="prep-topbar">
+          <div className="prep-topbar-left">
+            <button className="prep-toggle-sidebar" onClick={() => setSidebarOpen(!sidebarOpen)}>
+              {sidebarOpen ? <ChevronsLeft size={18}/> : <ChevronsRight size={18}/>}
+            </button>
+            <GraduationCap size={20} style={{color: 'var(--purple)'}}/>
+            <span className="prep-topbar-title">Preparation Agent</span>
+          </div>
+          <div className="prep-topbar-right">
+            <div className="prep-internship-selector">
+              <button className="prep-internship-btn" onClick={() => setShowInternshipPicker(!showInternshipPicker)}>
+                {selectedInternInfo ? `📌 ${selectedInternInfo.title}` : '🔍 Select Internship'}
+                <ChevronDown size={14}/>
+              </button>
+              {showInternshipPicker && (
+                <div className="prep-internship-dropdown">
+                  <input
+                    type="text" placeholder="Search internships..."
+                    value={internshipSearch} onChange={e => setInternshipSearch(e.target.value)}
+                    className="prep-internship-search"
+                    autoFocus
+                  />
+                  <div className="prep-internship-options">
+                    <div className="prep-internship-option" onClick={() => { setInternshipId(null); setShowInternshipPicker(false); }}>
+                      <span style={{opacity:0.6}}>None — general preparation</span>
+                    </div>
+                    {filteredInternships.slice(0, 20).map(i => (
+                      <div key={i.id} className={`prep-internship-option ${i.id === internshipId ? 'selected' : ''}`} onClick={() => selectInternship(i)}>
+                        <strong>{i.title}</strong>
+                        <span>{i.company} · {i.domain}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div className="prep-messages">
+          <div className="prep-messages-inner">
+            {isNewChat && (
+              <div className="prep-welcome">
+                <div className="prep-welcome-icon"><GraduationCap size={48}/></div>
+                <h2>Preparation Agent</h2>
+                <p>Your AI-powered career coach and mock interviewer. Upload a resume, select an internship, and let's prepare.</p>
+                <div className="prep-suggestions">
+                  {[
+                    { emoji: '📄', label: 'Analyze my resume', text: 'Analyze my resume and suggest improvements.' },
+                    { emoji: '🎯', label: 'Create preparation plan', text: 'Create a personalized preparation plan for my target internship.' },
+                    { emoji: '🎤', label: 'Start mock interview', text: 'Start a mock interview for me.' },
+                    { emoji: '📊', label: 'Identify skill gaps', text: 'What are my skill gaps for this internship?' },
+                    { emoji: '💡', label: 'Technical questions', text: 'Ask me technical interview questions.' },
+                    { emoji: '🤝', label: 'Behavioral questions', text: 'Practice behavioral interview questions with me.' },
+                  ].map((s, idx) => (
+                    <button key={idx} className="prep-suggestion" onClick={() => { setInput(s.text); }}>
+                      <span className="prep-suggestion-emoji">{s.emoji}</span>
+                      <span>{s.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {messages.map((msg, idx) => (
+              <div key={idx} className={`prep-msg ${msg.role}`}>
+                <div className="prep-msg-avatar">
+                  {msg.role === 'user' ? <User size={16}/> : <GraduationCap size={16}/>}
+                </div>
+                <div className="prep-msg-content"
+                  dangerouslySetInnerHTML={msg.role === 'assistant' ? { __html: formatMsg(msg.text) } : undefined}
+                >
+                  {msg.role === 'user' ? msg.text : undefined}
+                </div>
+              </div>
+            ))}
+
+            {loading && (
+              <div className="prep-msg assistant">
+                <div className="prep-msg-avatar"><GraduationCap size={16}/></div>
+                <div className="prep-msg-content"><span className="prep-typing">Thinking<span className="prep-dots">...</span></span></div>
+              </div>
+            )}
+            <div id="prep-messages-end"/>
+          </div>
+        </div>
+
+        {/* Composer */}
+        <div className="prep-composer">
+          <div className="prep-composer-inner">
+            <label className="prep-attach-btn">
+              <Paperclip size={18}/>
+              <input type="file" accept=".pdf,.docx" hidden onChange={handleFileUpload} disabled={uploadingFile}/>
+            </label>
+            <input
+              className="prep-input"
+              type="text"
+              placeholder={uploadingFile ? 'Uploading file...' : 'Ask anything about interview prep, resume analysis, skill gaps...'}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSend()}
+              disabled={uploadingFile}
+            />
+            <button className="prep-send-btn" onClick={handleSend} disabled={!input.trim() || loading}>
+              <Send size={18}/>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -423,6 +810,18 @@ const [sidebarCollapsed, setSidebarCollapsed] = useState(() => {
   return localStorage.getItem("sidebarCollapsed") === "true";
 });
 const [resumeLibrary, setResumeLibrary] = useState([]);
+const [exploreData, setExploreData] = useState(null);
+const [exploreLoading, setExploreLoading] = useState(false);
+const [exploreDetailInternship, setExploreDetailInternship] = useState(null);
+const [exploreSearch, setExploreSearch] = useState("");
+const [exploreMatchFilter, setExploreMatchFilter] = useState("all");
+const [exploreDomain, setExploreDomain] = useState("");
+const [exploreWorkMode, setExploreWorkMode] = useState("");
+const [exploreLocation, setExploreLocation] = useState("");
+const [exploreSortBy, setExploreSortBy] = useState("recommended");
+const [applyConfirm, setApplyConfirm] = useState(null);
+const [applyLoading, setApplyLoading] = useState(false);
+const [applyMessage, setApplyMessage] = useState("");
 
 const fetchResumes = async (currentToken) => {
   try {
@@ -435,6 +834,65 @@ const fetchResumes = async (currentToken) => {
     }
   } catch (err) {
     console.error("Failed to fetch resumes", err);
+  }
+};
+
+const fetchExploreData = async (currentToken) => {
+  setExploreLoading(true);
+  try {
+    const tkn = currentToken || token || localStorage.getItem("access_token");
+    const response = await fetch(`${API_BASE}/internships/match-all`, {
+      headers: { Authorization: `Bearer ${tkn}` },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      setExploreData(data);
+    }
+  } catch (err) {
+    console.error("Failed to fetch explore data", err);
+  } finally {
+    setExploreLoading(false);
+  }
+};
+
+const setActiveResume = async (id) => {
+  try {
+    const tkn = token || localStorage.getItem("access_token");
+    const response = await fetch(`${API_BASE}/resume/${id}/activate`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${tkn}` },
+    });
+    if (response.ok) {
+      setResumeId(id);
+      fetchResumes(tkn);
+      fetchExploreData(tkn);
+    }
+  } catch (err) {
+    console.error("Failed to activate resume", err);
+  }
+};
+
+const handleApplyToInternship = async (internshipId) => {
+  setApplyLoading(true);
+  setApplyMessage("");
+  try {
+    const tkn = token || localStorage.getItem("access_token");
+    const response = await fetch(`${API_BASE}/internships/${internshipId}/apply`, {
+      method: "POST",
+      headers: { Authorization: `Bearer ${tkn}` },
+    });
+    const data = await response.json();
+    if (response.ok) {
+      setApplyMessage("Application submitted successfully!");
+      setApplyConfirm(null);
+      fetchExploreData(tkn);
+    } else {
+      setApplyMessage(data.detail || "Application failed.");
+    }
+  } catch (err) {
+    setApplyMessage("Network error. Please try again.");
+  } finally {
+    setApplyLoading(false);
   }
 };
 
@@ -637,6 +1095,11 @@ fetchResumes(token);
   
   const useResume = async (id) => {
     try {
+      // Also activate on backend
+      await fetch(`${API_BASE}/resume/${id}/activate`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}` },
+      });
       const response = await fetch(`${API_BASE}/resume/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -645,6 +1108,7 @@ fetchResumes(token);
         setResumeId(data.id);
         setResumeData(data);
         setScreen("extraction");
+        fetchResumes(token);
       }
     } catch (err) {
       console.error("Failed to load resume", err);
@@ -2531,9 +2995,12 @@ ${resumeData?.name || userName || "Your Name"}
 
                   <div className="resume-card-actions">
                     {resumeId === res.id ? (
-                      <span style={{color: "var(--purple)", fontWeight: "700", border: "1px solid var(--purple)", padding: "4px 12px", borderRadius: "8px", fontSize: "12px"}}>Active</span>
+                      <span style={{color: "var(--purple)", fontWeight: "700", border: "1px solid var(--purple)", padding: "4px 12px", borderRadius: "8px", fontSize: "12px"}}>✓ Active</span>
                     ) : (
-                      <button className="secondary-btn" onClick={() => useResume(res.id)}>Use This Resume</button>
+                      <>
+                        <button className="secondary-btn" style={{fontSize: '12px', padding: '4px 12px'}} onClick={() => setActiveResume(res.id)}>Set Active</button>
+                        <button className="secondary-btn" style={{fontSize: '12px', padding: '4px 12px'}} onClick={() => useResume(res.id)}>View Details</button>
+                      </>
                     )}
                   </div>
                 </div>
@@ -2545,6 +3012,398 @@ ${resumeData?.name || userName || "Your Name"}
     );
   }
 
+  // ---------------- EXPLORE INTERNSHIPS SCREEN ----------------
+
+  if (screen === "explore") {
+    // Need to load data on mount if not loaded
+    if (!exploreData && !exploreLoading) {
+      fetchExploreData(token);
+    }
+
+    const { has_active_resume, reason, internships = [], applications = [] } = exploreData || {};
+
+    let filtered = internships.filter(item => {
+      // Search
+      if (exploreSearch) {
+        const query = exploreSearch.toLowerCase();
+        const text = `${item.title} ${item.company} ${item.required_skills?.join(" ")}`.toLowerCase();
+        if (!text.includes(query)) return false;
+      }
+      // Match filter
+      if (exploreMatchFilter === "matched" && !item.is_match) return false;
+      if (exploreMatchFilter === "unmatched" && item.is_match) return false;
+      
+      // Other filters
+      if (exploreDomain && item.domain !== exploreDomain) return false;
+      if (exploreWorkMode && item.work_mode !== exploreWorkMode) return false;
+      if (exploreLocation && item.location !== exploreLocation) return false;
+
+      return true;
+    });
+
+    // Sort
+    if (exploreSortBy === "recommended") {
+      filtered.sort((a, b) => (b.match_score || 0) - (a.match_score || 0));
+    } else if (exploreSortBy === "company") {
+      filtered.sort((a, b) => a.company.localeCompare(b.company));
+    } else if (exploreSortBy === "title") {
+      filtered.sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    content = (
+      <>
+        <header className="topbar">
+          <div className="brand">
+            <div className="brand-mark">AI</div>
+            <span>InternMatch</span>
+          </div>
+          <div className="topbar-right">
+            <button className="profile-nav-btn" onClick={() => setScreen("profile")}>My Profile</button>
+            <button className="logout-btn" onClick={logout}>Logout</button>
+          </div>
+        </header>
+
+        <main className="dashboard-content" style={{ paddingBottom: '80px' }}>
+          <div className="dashboard-header" style={{ marginBottom: '20px' }}>
+            <h1>Explore Internships</h1>
+            <p>Browse all available opportunities and see your matching status.</p>
+          </div>
+
+          {!has_active_resume && exploreData && (
+            <div className="alert warning" style={{ marginBottom: '24px', background: '#fff3cd', color: '#856404', padding: '16px', borderRadius: '12px', border: '1px solid #ffeeba', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div>
+                <strong style={{ display: 'block', marginBottom: '4px' }}>
+                  {reason === "NO_RESUME" ? "Upload your resume to check your match." : "Please select an active resume."}
+                </strong>
+                <span>You can still browse internships, but match scores and missing skills will not be shown.</span>
+              </div>
+              <button 
+                className="primary-btn" 
+                style={{ padding: '8px 16px', minHeight: 'auto', fontSize: '12px' }}
+                onClick={() => setScreen(reason === "NO_RESUME" ? "dashboard" : "resumes")}
+              >
+                {reason === "NO_RESUME" ? "Upload Resume" : "My Resumes"}
+              </button>
+            </div>
+          )}
+
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '24px', flexWrap: 'wrap' }}>
+            <input 
+              type="text" 
+              placeholder="Search title, company, or skills..." 
+              value={exploreSearch}
+              onChange={(e) => setExploreSearch(e.target.value)}
+              style={{ flex: 1, minWidth: '250px', padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text)' }}
+            />
+            <select 
+              value={exploreMatchFilter} 
+              onChange={(e) => setExploreMatchFilter(e.target.value)}
+              style={{ padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text)' }}
+            >
+              <option value="all">All Status</option>
+              {has_active_resume && (
+                <>
+                  <option value="matched">Matched Only</option>
+                  <option value="unmatched">Not Matched Only</option>
+                </>
+              )}
+            </select>
+            <select 
+              value={exploreSortBy} 
+              onChange={(e) => setExploreSortBy(e.target.value)}
+              style={{ padding: '12px 16px', borderRadius: '12px', border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text)' }}
+            >
+              {has_active_resume && <option value="recommended">Recommended First</option>}
+              <option value="title">Sort by Title</option>
+              <option value="company">Sort by Company</option>
+            </select>
+          </div>
+
+          {exploreLoading ? (
+            <div className="empty-state">
+              <div className="spinner"></div>
+              <h2>Loading internships...</h2>
+            </div>
+          ) : filtered.length === 0 ? (
+            <div className="empty-state">
+              <div>🔍</div>
+              <h2>No internships found</h2>
+              <p>Try adjusting your search or filters.</p>
+            </div>
+          ) : (
+            <div className="matches-grid">
+              {filtered.map((item) => (
+                <article className="match-card" key={item.id} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div className="match-top" style={{ justifyContent: 'flex-start', gap: '12px', marginBottom: '16px' }}>
+                    {has_active_resume && (
+                      <div className="rank" style={{ background: item.is_match ? '#edfaf2' : '#fef2f2', color: item.is_match ? '#27754b' : '#991b1b', width: 'auto', padding: '4px 12px', fontSize: '11px' }}>
+                        {item.is_match ? "✓ Match" : "✕ Not a Match"}
+                      </div>
+                    )}
+                    {has_active_resume && item.match_score !== undefined && (
+                      <div className="score" style={{ marginLeft: 'auto', textAlign: 'right' }}>
+                        <strong style={{ fontSize: '18px' }}>{item.match_score.toFixed(0)}%</strong>
+                        <span>score</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="match-title">
+                    <h2>{item.title}</h2>
+                    <p>{item.company}</p>
+                  </div>
+
+                  <div className="tags" style={{ marginBottom: '16px' }}>
+                    {item.domain && <span>{item.domain}</span>}
+                    {item.location && <span>{item.location}</span>}
+                    {item.work_mode && <span>{item.work_mode}</span>}
+                  </div>
+
+                  {has_active_resume && (
+                    <div style={{ marginBottom: '16px', flex: 1 }}>
+                      {item.is_match ? (
+                         <div style={{ color: '#27754b', fontSize: '13px' }}>
+                           Good fit based on your active resume.
+                         </div>
+                      ) : (
+                         <div style={{ color: '#991b1b', fontSize: '13px' }}>
+                           Missing required skills: {item.missing_skills?.slice(0, 3).join(", ")}
+                           {item.missing_skills?.length > 3 && ` +${item.missing_skills.length - 3} more`}
+                         </div>
+                      )}
+                    </div>
+                  )}
+
+                  <div className="match-actions" style={{ marginTop: 'auto', display: 'flex', gap: '8px' }}>
+                    <button 
+                      className="primary-btn" 
+                      style={{ flex: 1, padding: '8px 12px', minHeight: 'auto', fontSize: '13px', background: item.already_applied ? '#4caf50' : '' }}
+                      onClick={() => {
+                        setExploreDetailInternship(item);
+                        setScreen("explore-detail");
+                      }}
+                    >
+                      {item.already_applied ? "✓ Applied" : "View Details"}
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          )}
+        </main>
+      </>
+    );
+  }
+
+  // ---------------- EXPLORE DETAIL SCREEN ----------------
+
+  if (screen === "explore-detail") {
+    const item = exploreDetailInternship;
+    const { has_active_resume } = exploreData || {};
+
+    if (!item) {
+      setScreen("explore");
+      return null;
+    }
+
+    content = (
+      <>
+        <header className="topbar">
+          <div className="brand">
+            <div className="brand-mark">AI</div>
+            <span>InternMatch</span>
+          </div>
+          <div className="topbar-right">
+            <button className="profile-nav-btn" onClick={() => setScreen("profile")}>My Profile</button>
+            <button className="logout-btn" onClick={logout}>Logout</button>
+          </div>
+        </header>
+
+        <main className="apply-page">
+          <button className="page-back" onClick={() => setScreen("explore")}>
+            ← Back to Internships
+          </button>
+
+          <section className="apply-company-card">
+            <div className="company-icon">
+              {item.company?.charAt(0)?.toUpperCase() || "I"}
+            </div>
+            <div className="company-info">
+              <span className="company-label">{item.domain || "INTERNSHIP"}</span>
+              <h2>{item.title}</h2>
+              <p>{item.company}</p>
+            </div>
+            {has_active_resume && item.match_score !== undefined && (
+              <div className="apply-score">
+                <strong>{item.match_score.toFixed(0)}%</strong>
+                <span>skill match</span>
+              </div>
+            )}
+          </section>
+
+          <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+            {/* Main Content */}
+            <div style={{ flex: '1 1 500px' }}>
+              <section className="application-card">
+                <h2>About the Role</h2>
+                <p style={{ marginTop: '16px', lineHeight: '1.7', color: 'var(--text-secondary)' }}>{item.description}</p>
+                
+                <div style={{ display: 'flex', gap: '24px', marginTop: '24px', flexWrap: 'wrap' }}>
+                  <div>
+                    <strong style={{ display: 'block', marginBottom: '8px', fontSize: '13px', color: 'var(--text)' }}>Duration</strong>
+                    <span style={{ color: 'var(--text-secondary)' }}>{item.duration || "N/A"}</span>
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', marginBottom: '8px', fontSize: '13px', color: 'var(--text)' }}>Stipend</strong>
+                    <span style={{ color: 'var(--text-secondary)' }}>{item.stipend || "N/A"}</span>
+                  </div>
+                  <div>
+                    <strong style={{ display: 'block', marginBottom: '8px', fontSize: '13px', color: 'var(--text)' }}>Location</strong>
+                    <span style={{ color: 'var(--text-secondary)' }}>{item.location || "N/A"} ({item.work_mode || "N/A"})</span>
+                  </div>
+                </div>
+              </section>
+
+              {has_active_resume && (
+                <section className="application-card">
+                  <div className="section-kicker">YOUR FIT</div>
+                  <h2>Match Analysis</h2>
+                  
+                  {item.is_match ? (
+                    <div style={{ marginTop: '16px', padding: '16px', background: '#edfaf2', borderRadius: '12px', border: '1px solid #c3e6cb' }}>
+                      <strong style={{ color: '#27754b' }}>✓ Good Match</strong>
+                      <p style={{ margin: '4px 0 0', color: '#155724', fontSize: '13px' }}>Your skills align well with this position.</p>
+                    </div>
+                  ) : (
+                    <div style={{ marginTop: '16px', padding: '16px', background: '#fef2f2', borderRadius: '12px', border: '1px solid #f5c6cb' }}>
+                      <strong style={{ color: '#991b1b' }}>✕ Not a Match</strong>
+                      <p style={{ margin: '4px 0 0', color: '#721c24', fontSize: '13px' }}>You are missing required skills for this role.</p>
+                    </div>
+                  )}
+
+                  <div style={{ marginTop: '24px' }}>
+                    <strong style={{ display: 'block', marginBottom: '12px', fontSize: '13px' }}>Required Skills</strong>
+                    <div className="skill-list">
+                      {item.required_skills?.map(skill => {
+                        const isMissing = item.missing_skills?.includes(skill);
+                        return (
+                          <span key={skill} className={isMissing ? "skill missing-skill" : "skill matched"} style={{ opacity: isMissing ? 0.7 : 1 }}>
+                            {isMissing ? "✕ " : "✓ "}{skill}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </section>
+              )}
+            </div>
+
+            {/* Sidebar / Actions */}
+            <div style={{ flex: '0 0 350px' }}>
+              <section className="application-card" style={{ position: 'sticky', top: '24px' }}>
+                <h2 style={{ marginBottom: '24px' }}>Apply Now</h2>
+                
+                {applyMessage && (
+                  <div className={`alert ${applyMessage.includes("success") ? "success" : "error"}`} style={{ marginBottom: '20px' }}>
+                    {applyMessage}
+                  </div>
+                )}
+
+                {!has_active_resume ? (
+                  <div style={{ padding: '16px', background: '#fff3cd', borderRadius: '12px', color: '#856404', fontSize: '13px', marginBottom: '20px' }}>
+                    You need an active resume to apply.
+                    <button className="primary-btn" style={{ width: '100%', marginTop: '12px', padding: '10px' }} onClick={() => setScreen("resumes")}>Go to Resumes</button>
+                  </div>
+                ) : item.already_applied ? (
+                  <div style={{ padding: '16px', background: '#edfaf2', borderRadius: '12px', color: '#27754b', fontSize: '14px', fontWeight: 'bold', textAlign: 'center', marginBottom: '20px' }}>
+                    ✓ Application Submitted
+                  </div>
+                ) : (
+                  <>
+                    {!item.is_match && (
+                      <div style={{ padding: '12px', background: '#fff3cd', borderRadius: '8px', color: '#856404', fontSize: '12px', marginBottom: '20px', border: '1px solid #ffeeba' }}>
+                        <strong>Warning:</strong> You are missing required skills. You can still apply, but your chances may be lower.
+                      </div>
+                    )}
+                    
+                    {applyConfirm ? (
+                      <div style={{ padding: '16px', border: '1px solid var(--border)', borderRadius: '12px', marginBottom: '20px' }}>
+                        <p style={{ margin: '0 0 16px', fontSize: '14px' }}>Apply using your active resume?</p>
+                        <div style={{ display: 'flex', gap: '8px' }}>
+                          <button className="secondary-action" style={{ flex: 1 }} onClick={() => setApplyConfirm(false)} disabled={applyLoading}>Cancel</button>
+                          <button className="primary-action" style={{ flex: 1 }} onClick={() => handleApplyToInternship(item.id)} disabled={applyLoading}>
+                            {applyLoading ? "Sending..." : "Confirm"}
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      <button className="large-apply-btn" style={{ width: '100%', marginBottom: '20px' }} onClick={() => setApplyConfirm(true)}>
+                        Submit Application
+                      </button>
+                    )}
+                  </>
+                )}
+
+                <hr style={{ border: 'none', borderTop: '1px solid #eee9f1', margin: '24px 0' }} />
+                
+                <h3 style={{ fontSize: '13px', color: 'var(--text-secondary)', marginBottom: '16px' }}>Application Tools</h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  <button 
+                    className="secondary-action" 
+                    style={{ width: '100%', justifyContent: 'flex-start' }}
+                    onClick={() => {
+                      // Map item to match expected by skill gap (needs final_score, matched_skills, etc. usually, but item has them from match-all)
+                      const mappedMatch = {
+                        ...item,
+                        internship_id: item.id,
+                        final_score: item.match_score,
+                        skill_match_percentage: item.match_score
+                      };
+                      setSelectedInternship(mappedMatch);
+                      setScreen("skill-gap");
+                    }}
+                    disabled={!has_active_resume}
+                  >
+                    View Skill Gap Analysis
+                  </button>
+                  <button 
+                    className="secondary-action"
+                    style={{ width: '100%', justifyContent: 'flex-start' }}
+                    onClick={() => {
+                      const mappedMatch = {
+                        ...item,
+                        internship_id: item.id
+                      };
+                      setSelectedInternship(mappedMatch);
+                      setScreen("coverletter");
+                    }}
+                    disabled={!has_active_resume}
+                  >
+                    Generate Cover Letter
+                  </button>
+                </div>
+              </section>
+            </div>
+          </div>
+        </main>
+      </>
+    );
+  }
+
+  // ---------------- PREPARATION AGENT (full-page) ----------------
+
+  if (screen === "prep-agent") {
+    return (
+      <div className={`app-shell ${darkMode ? 'dark' : ''}`}>
+        <PrepAgent
+          token={token || localStorage.getItem("access_token")}
+          selectedInternship={exploreDetailInternship || selectedInternship}
+          onBack={() => setScreen("dashboard")}
+        />
+      </div>
+    );
+  }
+
   // ---------------- WORKSPACE SHELL ----------------
 
   return (
@@ -2553,7 +3412,7 @@ ${resumeData?.name || userName || "Your Name"}
       <div className="main-area">
         {content}
       </div>
-      <Chatbot token={token || localStorage.getItem("access_token")} />
+      <Chatbot token={token || localStorage.getItem("access_token")} selectedInternship={exploreDetailInternship || selectedInternship} />
     </div>
   );
 }
@@ -2565,6 +3424,10 @@ function Sidebar({ screen, setScreen, selectedInternship, profile, userName, ema
       { label: "My Resumes", icon: FileText, target: "resumes", activeScreens: ["resumes"] },
       { label: "My Profile", icon: User, target: "profile", activeScreens: ["profile"] },
       { label: "Matches", icon: Search, target: "results", activeScreens: ["results"] },
+      { label: "Internships", icon: Briefcase, target: "explore", activeScreens: ["explore", "explore-detail"] },
+    ]},
+    { section: "AI TOOLS", items: [
+      { label: "Preparation", icon: GraduationCap, target: "prep-agent", activeScreens: ["prep-agent"] },
     ]},
     { section: "APPLICATION", items: [
       { label: "Apply", icon: Send, target: "apply", activeScreens: ["apply"] },
